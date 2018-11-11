@@ -1866,6 +1866,29 @@ return  res;
     }
 
 
+    public String customSortString(String S, String T) {
+        HashMap<Character,Integer> hm = new HashMap<>();
+        StringBuilder sb = new StringBuilder();
+        char[] sarr = S.toCharArray();
+        char[] tarr = T.toCharArray();
+        int[] arr = new int[tarr.length];
+        Arrays.fill(arr,0);
+        for (int i=0,len = sarr.length;i<len;i++){
+            hm.put(sarr[i],i);
+        }
+        for (char c : tarr){
+            if(hm.containsKey(c)) arr[hm.get(c)]++;
+            else sb.append(c);
+        }
+        for (int i = 0,len = arr.length;i<len;i++){
+            StringBuilder tmpsb = new StringBuilder();
+            for (int j = 0;j<arr[i];j++) tmpsb.append(sarr[i]);
+            sb.append(tmpsb);
+        }
+        return sb.toString();
+    }
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
 
@@ -1876,14 +1899,7 @@ return  res;
         List<Integer> list1 = m.topKFrequent(arr,2);
         if (list1.size()!=0) for (int n:list1) System.out.println(n);
         */
-      // m.dd();
+        // m.dd();
 
     }
-
-
-
-
-
-
-
 }
