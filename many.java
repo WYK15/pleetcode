@@ -1888,7 +1888,7 @@ return  res;
         return sb.toString();
     }
 
-<<<<<<< HEAD
+
     public int findKthLargest(int[] nums, int k)
     {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(new Comparator<Integer>() {
@@ -1902,8 +1902,6 @@ return  res;
         return pq.poll();
     }
 
-=======
->>>>>>> 6108cd15d60b0e89011a7139527fe5936b761834
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
