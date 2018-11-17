@@ -1902,10 +1902,51 @@ return  res;
         return pq.poll();
     }
 
+    public int[] findErrorNums(int[] nums) {
+        int[] res = new int[2];
+        HashSet<Integer> hs = new HashSet<>();
+        for (int n:nums) {
+            if (hs.contains(n)) {
+                res[0] = n ;
+            }
+            hs.add(n);
+        }
+        for (int i=1,len = nums.length;i<=len;i++){
+            if (!hs.contains(i)) {
+                res[1] = i;
+                break;
+            }
+        }
+        return res;
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+            m--;
+            n--;
+            while( m>=0 && n>=0) {
+                if (nums1[m] > nums2[n]) {
+                    nums1[m + n +1 ] = nums1[m];
+                    m--;
+                } else {
+                    nums1[m + n +1 ] = nums2[n];
+                    n--;
+                }
+            }
+            if (m < 0) {
+                for (int i = 0;i<n+1;i++){
+                    nums1[i] = nums2[i];
+                }
+            }
+
+        for (int p:nums1) System.out.println(p);
+    }
+
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-
+        int[] arr1 = {0};
+        int[] arr2 = {1};
+        m.merge(arr1,0,arr2,1);
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
