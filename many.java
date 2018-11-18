@@ -1,4 +1,4 @@
-import javafx.util.Pair;
+﻿import javafx.util.Pair;
 import sun.reflect.generics.tree.Tree;
 
 import java.lang.reflect.Array;
@@ -204,7 +204,7 @@ public class many {
     }
 
 
-    public int search(int[] nums, int target) {
+   /* public int search(int[] nums, int target) {
         if (nums.length==1 && nums[0]==target) return 0;
         int left = 0;
         int right = nums.length-1;
@@ -218,7 +218,45 @@ public class many {
             if (target<nums[mid]) right--;
         }
         return -1;
+    }*/
+
+
+    public int search(int[] nums, int target) {
+        if (nums.length==1 && nums[0]==target) return 0;
+        int left = 0;
+        int right = nums.length-1;
+        int mid = 0;
+        while (left<right){
+            mid = (left+right)/2;
+            if (nums[left]==target) return left;
+            if (nums[right]==target) return right;
+            if (nums[mid]==target) return mid;
+            if (nums[mid] > nums[left]){ //第一种情况
+                if (target>nums[mid]) {
+                    left = mid+1;
+                }else {
+                    if (target>nums[left]) {
+                        right = mid-1;
+                    }else {
+                        left = mid+1;
+                    }
+                }
+            }else { //第二种情况
+                if (target>nums[mid]){
+                    if (target<nums[right]) {
+                        left = mid + 1;
+                    }else {
+                        right = mid -1;
+                    }
+                }else {
+                    right = mid -1;
+                }
+            }
+
+        }
+        return -1;
     }
+
 
 
     /*public int[] searchRange(int[] nums, int target) {
@@ -1941,36 +1979,40 @@ return  res;
     }
 
 
-    public int singleNumber(int[] nums) {
-        int n = 0;
-        for(int c : nums) n^=c;
-        return  n;
+    public ListNode reverseList(ListNode head) {
+        /*
+        ListNode pre = null,p = head;
+        while(p!=null){
+            ListNode tmp = p.next;
+            p.next = pre;
+            pre = p;
+            p = tmp;
+        }
+        return pre;
+        */
+        return reverseListhelp(null,head);
     }
 
-    public String[] findRelativeRanks(int[] nums) {
-        int[] arrtmp = Arrays.copyOf(nums,nums.length);
-        HashMap<Integer,String> hm = new HashMap<>();
-        Arrays.sort(arrtmp);
-        for (int i = 0,len = arrtmp.length;i<len;i++){
-            if (i==len-1) hm.put(arrtmp[i],"Gold Medal");
-            else if (i==len-2) hm.put(arrtmp[i],"Silver Medal");
-            else if (i==len-3) hm.put(arrtmp[i],"Bronze Medal");
-            else hm.put(arrtmp[i],String.valueOf(len-i));
+    public ListNode reverseListhelp(ListNode pre,ListNode p){
+        if (p==null){
+            return pre;
         }
-        String[] res = new String[arrtmp.length];
-        for (int i = 0,len = nums.length;i<len;i++){
-            res[i] = hm.get(nums[i]);
-        }
-        return res;
+        ListNode tmp = p.next;
+        p.next = pre;
+        return reverseListhelp(p,tmp);
     }
+
+
+//ffffff 
+
+
 
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        int[] arr1 = {0,3,1};
+        int[] arr1 = {0};
         int[] arr2 = {1};
-        int len = 3;
-        //m.merge(arr1,0,arr2,1);
+
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
