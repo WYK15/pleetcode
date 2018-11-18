@@ -221,7 +221,6 @@ public class many {
     }
 
 
-
     /*public int[] searchRange(int[] nums, int target) {
         int[] res={-1,-1};
         ArrayList<Integer> result = new ArrayList<>();
@@ -1942,11 +1941,36 @@ return  res;
     }
 
 
+    public int singleNumber(int[] nums) {
+        int n = 0;
+        for(int c : nums) n^=c;
+        return  n;
+    }
+
+    public String[] findRelativeRanks(int[] nums) {
+        int[] arrtmp = Arrays.copyOf(nums,nums.length);
+        HashMap<Integer,String> hm = new HashMap<>();
+        Arrays.sort(arrtmp);
+        for (int i = 0,len = arrtmp.length;i<len;i++){
+            if (i==len-1) hm.put(arrtmp[i],"Gold Medal");
+            else if (i==len-2) hm.put(arrtmp[i],"Silver Medal");
+            else if (i==len-3) hm.put(arrtmp[i],"Bronze Medal");
+            else hm.put(arrtmp[i],String.valueOf(len-i));
+        }
+        String[] res = new String[arrtmp.length];
+        for (int i = 0,len = nums.length;i<len;i++){
+            res[i] = hm.get(nums[i]);
+        }
+        return res;
+    }
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        int[] arr1 = {0};
+        int[] arr1 = {0,3,1};
         int[] arr2 = {1};
-        m.merge(arr1,0,arr2,1);
+        int len = 3;
+        //m.merge(arr1,0,arr2,1);
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
