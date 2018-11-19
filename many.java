@@ -1990,7 +1990,7 @@ return  res;
         }
         return pre;
         */
-        return reverseListhelp(null,head);
+        return reverseListhelp(null,head); //递归
     }
 
     public ListNode reverseListhelp(ListNode pre,ListNode p){
@@ -2002,10 +2002,21 @@ return  res;
         return reverseListhelp(p,tmp);
     }
 
+    //748
+    public String shortestCompletingWord(String licensePlate, String[] words) {
+        char[] arr1 = licensePlate.toCharArray();
+        HashMap<Character,Integer> hm = new HashMap<>();
+        for (char c:arr1){
+            hm.put(Character.toLowerCase(c),hm.getOrDefault(Character.toLowerCase(c),0)+1);
+        }
+        for (int i = 0,len = words.length;i<len;i++){
+            char[] tmp =  words[i].toCharArray();
+            int lenin =  tmp.length;
+            for (int j = 0;j<lenin;j++){
 
-//ffffff 
-
-
+            }
+        }
+    }
 
 
     public static void main(String[] args) throws CloneNotSupportedException {
