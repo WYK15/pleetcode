@@ -2004,18 +2004,49 @@ return  res;
 
     //748
     public String shortestCompletingWord(String licensePlate, String[] words) {
+        //
         char[] arr1 = licensePlate.toCharArray();
         HashMap<Character,Integer> hm = new HashMap<>();
+        String res = null;
+        int min = Integer.MAX_VALUE;
         for (char c:arr1){
-            hm.put(Character.toLowerCase(c),hm.getOrDefault(Character.toLowerCase(c),0)+1);
+            if (Character.isAlphabetic(c)) hm.put(Character.toLowerCase(c),hm.getOrDefault(Character.toLowerCase(c),0)+1);
         }
         for (int i = 0,len = words.length;i<len;i++){
             char[] tmp =  words[i].toCharArray();
             int lenin =  tmp.length;
-            for (int j = 0;j<lenin;j++){
+            HashMap<Character,Integer> tmphm  = new HashMap<>();
 
+            for (int j = 0;j<lenin;j++){
+                tmphm.put(tmp[j],tmphm.getOrDefault(tmp[j],0)+1);
+            }
+
+            boolean falg = true;
+            for (Map.Entry<Character,Integer> entry:hm.entrySet()){
+                Character c = entry.getKey();
+                Integer vv = entry.getValue();
+                if (!tmphm.containsKey(c) || tmphm.get(c) < vv ) {
+                    falg = false;
+                    break;
+                }
+            }
+            System.out.println(hm);
+            System.out.println(tmphm);
+            if (falg ) {
+
+                if ( lenin < min){
+                    res = words[i];
+                    min = lenin;
+                }
             }
         }
+        return  res;
+        // 第二种方式  int数组 26   不用hashmap
+    }
+
+    //73
+    public void setZeroes(int[][] matrix) {
+
     }
 
 
