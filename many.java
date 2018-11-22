@@ -1,11 +1,5 @@
-﻿import javafx.util.Pair;
-import sun.reflect.generics.tree.Tree;
-
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class many {
     public static class ListNode {
@@ -16,7 +10,7 @@ public class many {
 
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists == null || lists.length == 0) return null;
-        boolean  hasremain = true;
+        boolean  hasremain = true;/**/
         ListNode head = new ListNode(0);
         ListNode pre = head;
         int index = 0;
@@ -41,7 +35,7 @@ public class many {
                 pre = now;
             }
         }
-       return head.next;
+        return head.next;
     }
 
 
@@ -306,7 +300,7 @@ public class many {
             istoptail=false;
             if (nums[head]==target&&head<=min){
                 min = head;
-               istophead = true;
+                istophead = true;
             }
             if (nums[tail]==target&&tail>max){
                 max = tail;
@@ -331,7 +325,7 @@ public class many {
 
 
 
-   public boolean isValidSudoku(char[][] board) {
+    public boolean isValidSudoku(char[][] board) {
         //第一条规则
         HashSet<Character> hs = new HashSet<>();
         for(int i = 0;i<9;i++){
@@ -366,7 +360,7 @@ public class many {
                             if (!hs.contains(board[hang][lie])) hs.add(board[hang][lie]);
                             else  return false;
                         }
-                       // System.out.printf(hang+"   "+lie+"   ");
+                        // System.out.printf(hang+"   "+lie+"   ");
                     }
 
                 }
@@ -377,22 +371,22 @@ public class many {
     }
 
     public String countAndSay(int n) {
-      if (n==1) return "1";
-      String s = countAndSay(n-1);
-      StringBuilder res = new StringBuilder();
-      int count = 0;
-      char last  = s.charAt(0);
-      for(int i = 0;i<s.length();i++){
-        if (s.charAt(i)==last){
-            count++;
-        }else{
-            res.append(count+1);
-            res.append(s.charAt(i-1));
-            count = 0;
+        if (n==1) return "1";
+        String s = countAndSay(n-1);
+        StringBuilder res = new StringBuilder();
+        int count = 0;
+        char last  = s.charAt(0);
+        for(int i = 0;i<s.length();i++){
+            if (s.charAt(i)==last){
+                count++;
+            }else{
+                res.append(count+1);
+                res.append(s.charAt(i-1));
+                count = 0;
+            }
+            last = s.charAt(i);
         }
-        last = s.charAt(i);
-      }
-      return res.toString();
+        return res.toString();
     }
 
 
@@ -444,19 +438,19 @@ public class many {
         return count;
     }*/
 
-     public int firstMissingPositive(int[] nums) {
-         if (nums.length==0) return 1;
-         int min = Integer.MAX_VALUE;
-         HashSet<Integer> hs = new HashSet<>();
-         for(int i = 0;i<nums.length;i++) {
-             if (nums[i] > 0) {
-                 hs.add(nums[i]);
-                 if (nums[i] < min) {
-                     min = nums[i];
-                 }
-             }
-         }
-         if (min>1)  return 1;
+    public int firstMissingPositive(int[] nums) {
+        if (nums.length==0) return 1;
+        int min = Integer.MAX_VALUE;
+        HashSet<Integer> hs = new HashSet<>();
+        for(int i = 0;i<nums.length;i++) {
+            if (nums[i] > 0) {
+                hs.add(nums[i]);
+                if (nums[i] < min) {
+                    min = nums[i];
+                }
+            }
+        }
+        if (min>1)  return 1;
 
         int count = 1;
         for(int i = 0;i<nums.length;i++){
@@ -466,7 +460,7 @@ public class many {
             }
         }
 
-         return count;
+        return count;
     }
 
     /*public String multiply(String num1, String num2) {
@@ -532,25 +526,25 @@ public class many {
     }
 
     public String add(String num1,String num2){
-         Stack<Integer> stack = new Stack<>();
-         char[] arr1 = num1.toCharArray();
-         char[] arr2 = num2.toCharArray();
+        Stack<Integer> stack = new Stack<>();
+        char[] arr1 = num1.toCharArray();
+        char[] arr2 = num2.toCharArray();
         int i = arr1.length-1,j = arr2.length-1;
         int jinwei = 0;
         int he = 0;
-         for (;i>=0||j>=0;i--,j--){
-             if (i<0){
-                 he = arr2[j]-'0'+jinwei;
-             }else if(j<0){
-                 he = arr1[i]-'0'+jinwei;
-             }else {
-                 he = arr1[i]-'0'+arr2[j]-'0'+jinwei;
-             }
-             stack.push(he%10);
-             jinwei = he/10;
-         }
-         if (jinwei!=0) stack.push(jinwei);
-         StringBuilder sb = new StringBuilder();
+        for (;i>=0||j>=0;i--,j--){
+            if (i<0){
+                he = arr2[j]-'0'+jinwei;
+            }else if(j<0){
+                he = arr1[i]-'0'+jinwei;
+            }else {
+                he = arr1[i]-'0'+arr2[j]-'0'+jinwei;
+            }
+            stack.push(he%10);
+            jinwei = he/10;
+        }
+        if (jinwei!=0) stack.push(jinwei);
+        StringBuilder sb = new StringBuilder();
         while (!stack.isEmpty()){
             sb.append(stack.pop());
         }
@@ -664,7 +658,7 @@ public class many {
             sum2+=s2arr[i];
         }
         return (char)Math.abs(sum2-sum1);
-        
+
     }
 
     public String toGoatLatin(String S) {
@@ -687,7 +681,7 @@ public class many {
             for (int j = 0;j<=i;j++){
                 sb.append('a');
             }
-           if (i<words.length-1) sb.append(' ');
+            if (i<words.length-1) sb.append(' ');
         }
         return sb.toString();
     }
@@ -731,7 +725,7 @@ public class many {
         arr[0] = nums[0];
         int count = 0;
         for (int i = 1; i < arr.length; i++) {
-           arr[i] = arr[i-1] + nums[i];
+            arr[i] = arr[i-1] + nums[i];
         }
 
         for (int start = 0;start<arr.length;start++){
@@ -810,13 +804,13 @@ public class many {
         int tmptime = 0;
         int len = timeSeries.length;
         for (int i = 0; i < len-1; i++) {
-                tmptime = timeSeries[i]+duration-1;
-                if (tmptime<timeSeries[i+1])
-                {
-                    alltime+=duration;
-                }else {
-                    alltime+=(timeSeries[i+1]-timeSeries[i]);
-                }
+            tmptime = timeSeries[i]+duration-1;
+            if (tmptime<timeSeries[i+1])
+            {
+                alltime+=duration;
+            }else {
+                alltime+=(timeSeries[i+1]-timeSeries[i]);
+            }
 
 
         }
@@ -1100,24 +1094,24 @@ public class many {
                 return true;
             }
         }
-            return false;
+        return false;
     }
 
 
     public int uniquePaths(int m, int n) {
-       int[][] dp = new int[m+1][n+1];
-       for (int i = 1;i<=m;i++){
-           for (int j = 1;j<=n;j++){
-               if (i==1 && j==1){
-                   dp[i][i] = 0;
-               }else if (i==1 || j==1){
-                   dp[i][j] = 1;
-               }else {
-                   dp[i][j] = dp[i-1][j] + dp[i][j-1];
-               }
-           }
-       }
-       return dp[m][n];
+        int[][] dp = new int[m+1][n+1];
+        for (int i = 1;i<=m;i++){
+            for (int j = 1;j<=n;j++){
+                if (i==1 && j==1){
+                    dp[i][i] = 0;
+                }else if (i==1 || j==1){
+                    dp[i][j] = 1;
+                }else {
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1];
+                }
+            }
+        }
+        return dp[m][n];
     }
 
 
@@ -1203,7 +1197,7 @@ public class many {
     public boolean isPowerOfTwo(int n) {
         if (n<=0) return false;
         while (n>1) {
-        if (n%2!=0) return false;
+            if (n%2!=0) return false;
             n = n >> 1;
         }
         if (n==0) return false;
@@ -1262,10 +1256,10 @@ public class many {
 
 
     class TreeNode {
-      int val;
-      TreeNode left;
-      TreeNode right;
-      TreeNode(int x) { val = x; }
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode(int x) { val = x; }
     }
 
 
@@ -1297,7 +1291,7 @@ public class many {
                 }
             }
             al.add(ttmpal);
-           if (tmpal.size()>0) nodes.add(tmpal);
+            if (tmpal.size()>0) nodes.add(tmpal);
         }
         return al;
     }
@@ -1322,24 +1316,24 @@ public class many {
 
     public boolean isSymmetric(TreeNode root) {
         if (root==null) return true;
-       Stack<TreeNode> stack = new Stack<>();
-       stack.push(root.left);
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root.left);
         stack.push(root.right);
-       while (stack.size()>=2)
-       {
-           TreeNode node1 = stack.pop();
-           TreeNode node2 = stack.pop();
-           if ( node1==null && node2==null)  continue;
-           if (node1!=null && node2!=null && node1.val==node2.val ){
+        while (stack.size()>=2)
+        {
+            TreeNode node1 = stack.pop();
+            TreeNode node2 = stack.pop();
+            if ( node1==null && node2==null)  continue;
+            if (node1!=null && node2!=null && node1.val==node2.val ){
                 stack.push(node1.right);
                 stack.push(node2.left);
                 stack.push(node1.left);
                 stack.push(node2.right);
             }else {
-               return false;
+                return false;
             }
-       }
-       return true;
+        }
+        return true;
 
     }
 
@@ -1397,10 +1391,10 @@ public class many {
         LinkedList<Integer> ll = new LinkedList<>();
         sumNumvershelper(root,ll,0);
         int res = 0;
-       for (int n : ll){
-           res += n;
-       }
-       return res;
+        for (int n : ll){
+            res += n;
+        }
+        return res;
     }
 
     public void sumNumvershelper(TreeNode node,LinkedList<Integer> ll,int val){
@@ -1415,7 +1409,7 @@ public class many {
             sumNumvershelper(node.left,ll,val);
         }
         if (node.right!=null){
-             sumNumvershelper(node.right,ll,val);
+            sumNumvershelper(node.right,ll,val);
         }
     }
 
@@ -1437,17 +1431,17 @@ public class many {
         }
         return count;*/
         int res = 0,cur = 1;
-      if (A==null || len <= 2) return  0;
-      int dif = A[1]- A[0];
-      for (int i = 2;i<len;i++){
-          if (A[i]-A[i-1] == dif){
-              res += cur++;
-          }else {
-              dif = A[i]-A[i-1];
-              cur = 1;
-          }
-      }
-    return res;
+        if (A==null || len <= 2) return  0;
+        int dif = A[1]- A[0];
+        for (int i = 2;i<len;i++){
+            if (A[i]-A[i-1] == dif){
+                res += cur++;
+            }else {
+                dif = A[i]-A[i-1];
+                cur = 1;
+            }
+        }
+        return res;
     }
 
 
@@ -1530,19 +1524,19 @@ public class many {
         int maxsum = 0;
         int val1 = 0,val2 = 0 ;
         int[][] dp = new int[len][len];
-       for (int i = 0;i < len;i++){
-           for (int j = i;j<len;j++){
-               if (i==j) {
-                   dp[i][j] = arr[i];
-                   continue;
-               }
-               dp[i][j] = Math.max(dp[i][j-1]+arr[j],dp[i+1][j]+arr[i]);
-               if (dp[i][j]>dp[val1][val2]) {
-                  val1 = i;
-                  val2 = j;
-               }
-           }
-       }
+        for (int i = 0;i < len;i++){
+            for (int j = i;j<len;j++){
+                if (i==j) {
+                    dp[i][j] = arr[i];
+                    continue;
+                }
+                dp[i][j] = Math.max(dp[i][j-1]+arr[j],dp[i+1][j]+arr[i]);
+                if (dp[i][j]>dp[val1][val2]) {
+                    val1 = i;
+                    val2 = j;
+                }
+            }
+        }
         System.out.println( (val1+1)+"****"+(val2+1));
 
     }
@@ -1571,7 +1565,7 @@ public class many {
 
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if (candidates.length==0) return res;
-            LinkedList<Integer> tmp = new LinkedList<>();
+        LinkedList<Integer> tmp = new LinkedList<>();
         Arrays.sort(candidates);
         combinationSum2help(candidates,tmp,res,0,target,0);
         return res;
@@ -1602,17 +1596,17 @@ public class many {
         }
 
         //O(n)
-       List<Map.Entry<Integer,Integer>> list = new ArrayList<>(hm.entrySet());
+        List<Map.Entry<Integer,Integer>> list = new ArrayList<>(hm.entrySet());
         //O(nlg(n))
         Collections.sort(list,(o1,o2)->{
             return o2.getValue().compareTo(o1.getValue());
         });
 
-       ArrayList<Integer> res = new ArrayList<>();
-       //O(k)
-       for (int i = 0;i < k;i++){
-           res.add(list.get(i).getKey());
-       }
+        ArrayList<Integer> res = new ArrayList<>();
+        //O(k)
+        for (int i = 0;i < k;i++){
+            res.add(list.get(i).getKey());
+        }
         return res;
     }
 
@@ -1729,15 +1723,15 @@ public class many {
     //236
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         Stack<TreeNode> stack = new Stack<>();
-            Stack<TreeNode> stack1 = findpath(root,p,stack);
-            stack.clear();
-            Stack<TreeNode> stack2 = findpath(root,q,stack);
-            int shortlen = Math.min(stack1.size(),stack2.size());
-            TreeNode res = null;
-            for (int i = 0;i<shortlen;i++){
-                if (stack1.get(i)==stack2.get(i)) res = stack1.get(i);
-            }
-return  res;
+        Stack<TreeNode> stack1 = findpath(root,p,stack);
+        stack.clear();
+        Stack<TreeNode> stack2 = findpath(root,q,stack);
+        int shortlen = Math.min(stack1.size(),stack2.size());
+        TreeNode res = null;
+        for (int i = 0;i<shortlen;i++){
+            if (stack1.get(i)==stack2.get(i)) res = stack1.get(i);
+        }
+        return  res;
 
     }
 
@@ -1763,7 +1757,7 @@ return  res;
     }
 
 
-        public  void dd(){
+    public  void dd(){
         TreeNode root = new TreeNode(1);
         TreeNode ll1 = new TreeNode(2);
         TreeNode ll2 = new TreeNode(1);
@@ -1771,11 +1765,11 @@ return  res;
         ll1.left = null;ll1.right=null;
         ll2.left=null;ll2.right=null;
         Stack<TreeNode> stack = new Stack<>();
-           Stack<TreeNode> res1 = findpath(root,root,stack);
-            stack.empty();
-            Stack<TreeNode> res2 = findpath(root,ll1,stack);
-            for (TreeNode tr:res1) System.out.println(tr.val+"**");
-            for (TreeNode tr:res2) System.out.println(tr.val);
+        Stack<TreeNode> res1 = findpath(root,root,stack);
+        stack.empty();
+        Stack<TreeNode> res2 = findpath(root,ll1,stack);
+        for (TreeNode tr:res1) System.out.println(tr.val+"**");
+        for (TreeNode tr:res2) System.out.println(tr.val);
     }
 
 
@@ -1817,7 +1811,7 @@ return  res;
                     queue.offer(tmp.left);
             }
         }
-    return list;
+        return list;
     }
 
 
@@ -1850,13 +1844,13 @@ return  res;
     }
 
     public String makestring(Map.Entry<Character,Integer> map){
-            char c = map.getKey();
-            int count = map.getValue();
-            StringBuilder sb = new StringBuilder();
-            while (count-->0){
-                sb.append(c);
-            }
-            return sb.toString();
+        char c = map.getKey();
+        int count = map.getValue();
+        StringBuilder sb = new StringBuilder();
+        while (count-->0){
+            sb.append(c);
+        }
+        return sb.toString();
     }
 
 
@@ -1958,22 +1952,22 @@ return  res;
     }
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-            m--;
-            n--;
-            while( m>=0 && n>=0) {
-                if (nums1[m] > nums2[n]) {
-                    nums1[m + n +1 ] = nums1[m];
-                    m--;
-                } else {
-                    nums1[m + n +1 ] = nums2[n];
-                    n--;
-                }
+        m--;
+        n--;
+        while( m>=0 && n>=0) {
+            if (nums1[m] > nums2[n]) {
+                nums1[m + n +1 ] = nums1[m];
+                m--;
+            } else {
+                nums1[m + n +1 ] = nums2[n];
+                n--;
             }
-            if (m < 0) {
-                for (int i = 0;i<n+1;i++){
-                    nums1[i] = nums2[i];
-                }
+        }
+        if (m < 0) {
+            for (int i = 0;i<n+1;i++){
+                nums1[i] = nums2[i];
             }
+        }
 
         for (int p:nums1) System.out.println(p);
     }
@@ -2003,7 +1997,7 @@ return  res;
     }
 
     //748
-    public String shortestCompletingWord(String licensePlate, String[] words) {
+    /*public String shortestCompletingWord(String licensePlate, String[] words) {
         //
         char[] arr1 = licensePlate.toCharArray();
         HashMap<Character,Integer> hm = new HashMap<>();
@@ -2042,6 +2036,18 @@ return  res;
         }
         return  res;
         // 第二种方式  int数组 26   不用hashmap
+    }*/
+
+
+    public String shortestCompletingWord(String licensePlate, String[] words) {
+        char[] arr = licensePlate.toCharArray();
+        for (char c : arr) {
+            if(Character.isAlphabetic(c)){
+                c = Character.toLowerCase(c);
+                arr[c-'a']++;
+            }
+        }
+        return "";
     }
 
     //73
@@ -2052,8 +2058,8 @@ return  res;
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        int[] arr1 = {0};
-        int[] arr2 = {1};
+        int[] arr1 = new int[7];
+        for (int n : arr1) System.out.println(n);
 
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
