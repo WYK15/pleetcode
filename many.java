@@ -2040,21 +2040,65 @@ public class many {
 
 
     public String shortestCompletingWord(String licensePlate, String[] words) {
-        char[] arr = licensePlate.toCharArray();
-        for (char c : arr) {
+        int[] arr = new int[26];
+        String res = null;
+        int minlen  = Integer.MAX_VALUE;
+        HashSet<Integer> hs = new HashSet<>();
+        char[] chararr = licensePlate.toCharArray();
+        for (char c : chararr) {
             if(Character.isAlphabetic(c)){
                 c = Character.toLowerCase(c);
                 arr[c-'a']++;
+                hs.add(c-'a');
             }
         }
-        return "";
+        for ( String s : words){
+            char[]  tmpsarr = s.toCharArray();
+            int[] tmpcountarr = new int[26];
+            for (char c : tmpsarr){
+                if (Character.isAlphabetic(c)){
+                    c = Character.toLowerCase(c);
+                    tmpcountarr[c-'a']++;
+                }
+            }
+            boolean flag = true;
+            for (Integer index:hs){
+                if (tmpcountarr[index]==0 || tmpcountarr[index]<arr[index]){
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag && s.length()<minlen){
+                res = s;
+                minlen = s.length();
+            }
+        }
+        return res;
     }
 
     //73
     public void setZeroes(int[][] matrix) {
-
+        if (matrix.length==0) return;
+        int len1 = matrix.length,len2 = matrix[0].length;
+        for(int i = 0;i<len1;i++){
+            boolean flag = false;
+            for(int j = 0;j<len2;j++){
+                if (matrix[i][j]==0){
+                    flag = true;
+                   /* if (j-1 >=0 && matrix[i-1][j]!=0){
+                        for (int l = 0;l<len2;l++){
+                            matrix[l][j] = 0;
+                        }
+                    }*/
+                }
+            }
+            if (flag){
+               for (int p = 0;p<len2;p++){
+                   matrix[i][p] = 0;
+               }
+            }
+        }
     }
-
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
