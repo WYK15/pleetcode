@@ -2078,26 +2078,66 @@ public class many {
 
     //73
     public void setZeroes(int[][] matrix) {
-        if (matrix.length==0) return;
-        int len1 = matrix.length,len2 = matrix[0].length;
-        for(int i = 0;i<len1;i++){
-            boolean flag = false;
-            for(int j = 0;j<len2;j++){
-                if (matrix[i][j]==0){
-                    flag = true;
-                   /* if (j-1 >=0 && matrix[i-1][j]!=0){
-                        for (int l = 0;l<len2;l++){
-                            matrix[l][j] = 0;
-                        }
-                    }*/
+        int rows = matrix.length,cols = matrix[0].length;
+        boolean flag = false,flag2 = false;
+        for (int i =0;i<rows;i++){
+            if (matrix[i][0]==0) flag = true;
+        }
+        for (int j =0;j<cols;j++){
+            if (matrix[0][j]==0) flag2 = true;
+        }
+        for (int i = 1;i<rows;i++){
+            for (int j = 1;j<cols;j++){
+                if (matrix[i][j] == 0){
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
-            if (flag){
-               for (int p = 0;p<len2;p++){
-                   matrix[i][p] = 0;
-               }
+        }
+
+        if (flag){
+            for (int i = 0;i<rows;i++) matrix[i][0] = 0;
+        }
+
+        if (flag2){
+            for (int i = 0;i<cols;i++){
+                matrix[0][i] = 0;
             }
         }
+
+
+    }
+
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB==null) return null;
+        ListNode p = headA;
+        ListNode tmp = null;
+        while (p.next!=null){
+            p = p.next;
+        }
+        tmp = p;
+        p.next = headB;
+        ListNode slow = headA,fast = headA;
+        do{
+            slow = slow.next;
+            if(fast.next!=null){
+                fast = fast.next.next;
+            } else{
+                fast = null;
+            }
+        }while (fast!=null && slow!=fast);
+        if(fast == null ) {
+            tmp.next = null;
+            return null;
+        }
+        fast = headA;
+        while (fast != slow){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        tmp.next = null;
+        return fast;
     }
 
     public static void main(String[] args) throws CloneNotSupportedException {
