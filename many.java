@@ -2140,10 +2140,102 @@ public class many {
         return fast;
     }
 
+    public boolean isRectangleOverlap(int[] rec1, int[] rec2) {
+        if (rec1[2] < rec2[0] || rec1[0] > rec2[2]) return false;
+        if (rec1[3] < rec2[1] || rec1[1] > rec2[3]) return false;
+        int xstart,xend,ystart,yend;
+        int start1 = rec1[0],end1 = rec1[2],start2 = rec2[0],end2 = rec2[2];
+        if (start2>start1 && end2>end1){
+            xstart = start2;
+            xend = end1;
+        }else if(start1 > start2 && end1 > end2){
+            xstart = start1;
+            xend = end2;
+        }else if(start2 > start1 && end1 > end2){
+            xstart = start2;
+            xend = end2;
+        }else {
+            xstart = start1;
+            xend = end1;
+        }
+        start1 = rec1[1];
+        end1 = rec1[3];
+        start2 = rec2[1];
+        end2 = rec2[3];
+        if (start2 > start1 && end2 > end1){
+            ystart = start2;
+            yend = end1;
+        }else if (end1 > end2 && start1 > start2){
+            ystart = start1;
+            yend = end2;
+        }else if (end1 > end2 && start2 > start1){
+            ystart = start2;
+            yend = end2;
+        }else {
+            ystart =start1;
+            yend = end1;
+        }
+        for (;xstart<=xend;xstart++){
+            for (int j = ystart;j<=yend;j++){
+                if (existinrec2(xstart,j,rec2)){
+                    return  true;
+                }
+            }
+        }
+        return  false;
+    }
+
+    public boolean existinrec2(int x,int y,int[] rec2){
+        if (x > rec2[0] && x <rec2[2] && y > rec2[1] && y < rec2[3]) return true;
+        return  false;
+    }
+
+    public int minDepth(TreeNode root) {
+        return minDepth(root,1);
+    }
+
+    public int  minDepth(TreeNode root,int count){
+        if (root.left==null && root.right==null) return count;
+        if (root.left==null) return minDepth(root.right,count+1);
+        if (root.right==null ) return minDepth(root.left,count+1);
+        return Math.min(minDepth(root.left,count+1),minDepth(root.right,count+1));
+    }
+/*
+    public int trailingZeroes(int n) {
+        int count = 0;
+        int tmp ;
+        int chengji = 1;
+        for (int i = 2; i <= n;i+=2){
+            if (i%10==0) {
+                count++;
+                continue;
+            }
+            chengji *= i;
+            if (chengji > 1000) chengji = chengji >> 1;
+        }
+        if(n>=5) chengji *= 5;
+        while ((tmp =chengji%10)== 0){
+            count++;
+            chengji /= 10;
+        }
+        return count;
+    }
+    */
+
+    public int trailingZeroes(int n) {
+        int sum = 0;
+        while (n > 5){
+            sum += n/5;
+            n /= 5;
+        }
+      return  sum;
+    }
+
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        int[] arr1 = new int[7];
-        for (int n : arr1) System.out.println(n);
+      m.trailingZeroes(15);
 
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
