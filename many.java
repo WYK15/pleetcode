@@ -2222,6 +2222,7 @@ public class many {
     }
     */
 
+    //n！结果 末尾连续0 的 个数
     public int trailingZeroes(int n) {
         int sum = 0;
         while (n > 5){
@@ -2232,10 +2233,41 @@ public class many {
     }
 
 
+    public String getHint(String secret, String guess) {
+        char[] arr1 = secret.toCharArray();
+        char[] arr2 = guess.toCharArray();
+        int acount = 0,bcount = 0;
+        HashMap<Character,Integer> hm = new HashMap<>();
+        for (char c : arr1){
+            hm.put(c,hm.getOrDefault(c,0)+1);
+        }
+        for (int i = 0;i<arr2.length;i++){
+            if (hm.containsKey(arr2[i]) && arr2[i] == arr1[i]){
+                acount++;
+                hm.put(arr2[i],hm.get(arr2[i])-1);
+            }
+        }
+
+        for (int i = 0;i<arr2.length;i++){
+            if (hm.containsKey(arr2[i]) && arr2[i] != arr1[i]){
+                if (hm.get(arr2[i])>0)
+                {
+                    bcount++;
+                    hm.put(arr2[i],hm.get(arr2[i])-1);
+                }
+
+            }
+        }
+
+
+        return Integer.valueOf(acount)+"A"+Integer.valueOf(bcount)+"B";
+    }
+
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-      m.trailingZeroes(15);
+
+        System.out.println(m.getHint("1123","0111"));
 
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
