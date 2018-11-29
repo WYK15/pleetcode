@@ -2263,6 +2263,27 @@ public class many {
         return Integer.valueOf(acount)+"A"+Integer.valueOf(bcount)+"B";
     }
 
+    public ListNode rotateRight(ListNode head, int k) {
+        ListNode p = head;
+        int len = 1;
+        ListNode finalnode = null;
+        while (p!=null){
+            if (p.next==null)  finalnode = p;
+            p = p.next;
+            len++;
+        }
+        k = k % len;
+        int tmp = 1,tmplen = len - k;
+         p = head;
+        while (tmp <= tmplen){
+          tmp++;
+          p = p.next;
+        }
+        ListNode res = p.next;
+        p.next = null;
+        finalnode.next = head;
+        return res;
+    }
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
