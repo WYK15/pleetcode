@@ -2285,11 +2285,25 @@ public class many {
         return res;
     }
 
+    //877
+    public boolean stoneGame(int[] piles) {
+        return true;
+    }
+
+    //289
+    public void gameOfLife(int[][] board) {
+        if (board.length==0) return;
+        int row = board.length,col = board[0].length;
+        int[] firstrow= new int[row];
+        int[] firstcol = new int[col];
+        int number0 = 0,number1 = 0;
+
+    }
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
 
         System.out.println(m.getHint("1123","0111"));
-
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
@@ -2298,6 +2312,5 @@ public class many {
         if (list1.size()!=0) for (int n:list1) System.out.println(n);
         */
         // m.dd();
-
     }
 }
