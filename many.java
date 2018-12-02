@@ -2206,7 +2206,7 @@ public class many {
         int tmp ;
         int chengji = 1;
         for (int i = 2; i <= n;i+=2){
-            if (i%10==0) {
+            if (i%10==0) {20
                 count++;
                 continue;
             }
@@ -2222,7 +2222,30 @@ public class many {
     }
     */
 
-    //n！结果 末尾连续0 的 个数
+//278
+  /*  public int firstBadVersion(int n) {
+        return firstBadVersionhelp(1,n);
+    }
+
+    public int firstBadVersionhelp(int left,int right){
+        int mid = left ;
+        while (left <= right){
+            mid = (left/2+right/2);
+            if (isBadVersion(mid) && !isBadVersion(mid-1)){
+                return mid;
+            }else if (isBadVersion(mid) && isBadVersion(mid-1)){
+                right = mid-1;
+            }else if (!isBadVersion(mid) && isBadVersion(mid+1) ){
+                return mid+1;
+            }else {
+
+                left = mid + 1;
+            }
+        }
+        return mid;
+    }*/
+
+
     public int trailingZeroes(int n) {
         int sum = 0;
         while (n > 5){
@@ -2233,57 +2256,6 @@ public class many {
     }
 
 
-    public String getHint(String secret, String guess) {
-        char[] arr1 = secret.toCharArray();
-        char[] arr2 = guess.toCharArray();
-        int acount = 0,bcount = 0;
-        HashMap<Character,Integer> hm = new HashMap<>();
-        for (char c : arr1){
-            hm.put(c,hm.getOrDefault(c,0)+1);
-        }
-        for (int i = 0;i<arr2.length;i++){
-            if (hm.containsKey(arr2[i]) && arr2[i] == arr1[i]){
-                acount++;
-                hm.put(arr2[i],hm.get(arr2[i])-1);
-            }
-        }
-
-        for (int i = 0;i<arr2.length;i++){
-            if (hm.containsKey(arr2[i]) && arr2[i] != arr1[i]){
-                if (hm.get(arr2[i])>0)
-                {
-                    bcount++;
-                    hm.put(arr2[i],hm.get(arr2[i])-1);
-                }
-
-            }
-        }
-
-
-        return Integer.valueOf(acount)+"A"+Integer.valueOf(bcount)+"B";
-    }
-
-    public ListNode rotateRight(ListNode head, int k) {
-        ListNode p = head;
-        int len = 1;
-        ListNode finalnode = null;
-        while (p!=null){
-            if (p.next==null)  finalnode = p;
-            p = p.next;
-            len++;
-        }
-        k = k % len;
-        int tmp = 1,tmplen = len - k;
-         p = head;
-        while (tmp <= tmplen){
-          tmp++;
-          p = p.next;
-        }
-        ListNode res = p.next;
-        p.next = null;
-        finalnode.next = head;
-        return res;
-    }
 
     //877
     public boolean stoneGame(int[] piles) {
@@ -2302,8 +2274,6 @@ public class many {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-
-        System.out.println(m.getHint("1123","0111"));
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
