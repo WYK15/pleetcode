@@ -2272,6 +2272,28 @@ public class many {
 
     }
 
+    //701
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) return root;
+        TreeNode pre = root,iter = root;
+        while (iter!=null){
+            pre = iter;
+            if (iter.val < val) {
+                iter = iter.right;
+            }else {
+                iter = iter.left;
+            }
+        }
+        TreeNode insertone = new TreeNode(val);
+        if (pre.val < val){
+            pre.right = insertone;
+        }else {
+            pre.left = insertone;
+        }
+        return root;
+    }
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
       /* stu stu1 = new stu();
