@@ -2314,6 +2314,39 @@ public class many {
         return sb.toString();
     }
 
+    /*二叉树前序 递归实现
+    public List<Integer> preorderTraversal(TreeNode root) {
+        ArrayList<Integer> al = new ArrayList<>();
+        preorderTraversalhelp1(root,al);
+        return  al;
+    }
+
+    public void preorderTraversalhelp1(TreeNode root,ArrayList res){
+        if (root!=null){
+            res.add(root.val);
+            preorderTraversalhelp1(root.left,res);
+            preorderTraversalhelp1(root.right,res);
+        }
+    }
+    */
+
+    //二叉树 非递归实现
+    public List<Integer> preorderTraversal(TreeNode root) {
+
+        ArrayList<Integer> res = new ArrayList<>();
+        if (root!=null){
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.isEmpty()){
+                TreeNode tmp = stack.pop();
+                res.add(tmp.val);
+                //打印先左 后右，则先打印的 后推入 ，即先推入 右，后推入左
+                if ( tmp.right!=null ) stack.push(tmp.right);
+                if ( tmp.left !=null ) stack.push(tmp.left);
+            }
+        }
+        return res;
+    }
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
