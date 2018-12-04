@@ -2293,6 +2293,27 @@ public class many {
         return root;
     }
 
+    //553
+    public String optimalDivision(int[] nums) {
+        int len = nums.length;
+        StringBuilder sb = new StringBuilder();
+        if (len == 1) {
+            return String.valueOf(nums[0]);
+        }else if (len == 2){
+            return String.valueOf(nums[0])+"/"+String.valueOf(nums[1]);
+        }else {
+            sb.append(nums[0]);
+            sb.append("/(");
+            for (int i = 1;i < len;i++){
+                sb.append(nums[i]);
+                sb.append("/");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            sb.append(")");
+        }
+        return sb.toString();
+    }
+
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
