@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -993,6 +994,7 @@ public class many {
             }
             if (hm.get(n)>=len2) return n;
         }
+
         return nums[0];
     }
 
@@ -2369,6 +2371,9 @@ public class many {
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
+        String s = " ";
+
+
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
