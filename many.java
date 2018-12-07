@@ -2369,9 +2369,20 @@ public class many {
         return dp[len1-1][len2-1];
     }
 
+    //442
+    public List<Integer> findDuplicates(int[] nums) {
+        ArrayList<Integer> al = new ArrayList<>();
+        for (int i = 0,len = nums.length;i<len;i++){
+            if (nums[Math.abs(nums[i])-1] < 0) {
+                al.add(Math.abs(nums[i]));
+            }
+            nums[Math.abs(nums[i])-1] *= (-1);
+        }
+        return  al;
+    }
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        String s = " ";
 
 
       /* stu stu1 = new stu();
