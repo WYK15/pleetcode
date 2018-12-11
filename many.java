@@ -1,4 +1,6 @@
 
+import java.io.BufferedInputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -2381,10 +2383,29 @@ public class many {
         return  al;
     }
 
+    public boolean escapeGhosts(int[][] ghosts, int[] target) {
+        int len = Math.abs(target[0]) + Math.abs(target[1]);
+        for (int[] ghost : ghosts){
+            int tmp = Math.abs(ghost[0]-target[0]) + Math.abs(ghost[1]-ghost[0]);
+            if (tmp <= len) return false;
+        }
+        return true;
+    }
+
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
+        Scanner sc = new Scanner(System.in);
+        int n;
 
-
+        while(sc.hasNext()){
+            n = sc.nextInt();
+            System.out.println((int) Math.sqrt(n));
+        }
+       /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
+        String line = sc.nextLine();
+        System.out.println(line);*/
       /* stu stu1 = new stu();
        stu stu2 = (stu) stu1.clone();
         System.out.println(stu1.name==stu2.name);*///false
