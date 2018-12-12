@@ -2268,12 +2268,32 @@ public class many {
 
     //289
     public void gameOfLife(int[][] board) {
-        if (board.length==0) return;
-        int row = board.length,col = board[0].length;
-        int[] firstrow= new int[row];
-        int[] firstcol = new int[col];
-        int number0 = 0,number1 = 0;
-
+       int row = board.length,col = board[0].length;
+       for (int i = 0;i < row;i++){
+           for (int j = 0;j < col;j++){
+               //计算board[i][j]周围的活细胞和死细胞的数量
+               int live = 0;
+               for (int rowin = i-1 ;  rowin <= i+1;rowin++){
+                   for(int colin = j-1;  colin <= j+1;colin++){
+                       if (rowin >= 0 && colin >=0 && rowin < row && colin <col)
+                       if (board[rowin][colin]==1 || board[rowin][colin] ==3 ) live++;
+                   }
+               }
+               if (board[i][j]==1) live--;
+               if (board[i][j] == 1){
+                   if (live < 2 || live > 3) board[i][j] = 3;
+               }else {
+                   if (live == 3) board[i][j] = 2;
+               }
+               if (i==0 && j==1) System.out.println(board[i][j]);
+           }
+       }
+        for (int i = 0;i < row;i++){
+            for (int j = 0;j < col;j++){
+                if (board[i][j]==2) board[i][j] = 1;
+                if (board[i][j]==3) board[i][j] = 0;
+            }
+       }
     }
 
     //701
@@ -2392,17 +2412,42 @@ public class many {
         return true;
     }
 
+    public List<List<String>> partition(String s) {
+        ArrayList<List<String>> res = new ArrayList<>();
+        LinkedList<String> tmp = new LinkedList<>();
+        partitionhelp(res,tmp,s);
+        return  res;
+    }
+
+    public void partitionhelp(ArrayList<List<String>> res,LinkedList<String> tmp,String s){
+        if (s.length() == 0 ) {
+            res.add(new LinkedList<>(tmp));
+            return;
+        }
+        int len = s.length();
+        for (int i = 1;i <= len;i++){
+            String tmps = s.substring(0,i);
+            if (ishuiwen(tmps)){
+                tmp.add(tmps);
+                partitionhelp(res,tmp,s.substring(i));
+                tmp.removeLast();
+            }
+        }
+    }
+
+    public boolean ishuiwen(String s){
+        int i = 0,len = s.length()-1;
+        while (len > i){
+            if (s.charAt(len--) != s.charAt(i++)) return false;
+        }
+        return true;
+    }
 
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        Scanner sc = new Scanner(System.in);
-        int n;
+        String s = "aab";
 
-        while(sc.hasNext()){
-            n = sc.nextInt();
-            System.out.println((int) Math.sqrt(n));
-        }
        /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
         String line = sc.nextLine();
         System.out.println(line);*/
