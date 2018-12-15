@@ -1,4 +1,7 @@
 
+import sun.reflect.generics.tree.Tree;
+
+import javax.sound.sampled.Line;
 import java.io.BufferedInputStream;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -2443,10 +2446,50 @@ public class many {
         return true;
     }
 
+    //leetcode 894
+    public List<TreeNode> allPossibleFBT(int N) {
+        ArrayList<TreeNode> res = new ArrayList<>();
+        if (N % 2 == 0) return res;
+        if (N == 1) {
+            TreeNode tn = new TreeNode(0);
+            res.add(tn);
+            return res;
+        }
+        N--;
+        for (int i = 1; i < N; i += 2) {
+            for (TreeNode tn1 : allPossibleFBT(i)) {
+                for (TreeNode tn2 : allPossibleFBT(N - i)) {
+                    TreeNode root = new TreeNode(0);
+                    root.left = tn1;
+                    root.right = tn2;
+                    res.add(root);
+                }
+            }
+        }
+        return res;
+    }
+
+    public List<Integer> largestValues(TreeNode root) {
+        LinkedList<TreeNode> ll = new LinkedList<>();
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) return res;
+        ll.add(root);
+        while (!ll.isEmpty()){
+            int tmp = ll.size();
+            int max = Integer.MIN_VALUE;
+            while (tmp-- > 0){
+                TreeNode now = ll.poll();
+                if (now.val > max) max = now.val;
+                if (now.left!=null) ll.offer(now.left);
+                if (now.right!=null) ll.offer(now.right);
+            }
+            res.add(max);
+        }
+        return res;
+    }
 
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-        String s = "aab";
 
        /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
         String line = sc.nextLine();
