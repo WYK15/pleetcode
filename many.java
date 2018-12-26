@@ -2488,9 +2488,32 @@ public class many {
         return res;
     }
 
+    /*public void flatten(TreeNode root) {
+        flattenhelp(root);
+    }
+
+    public TreeNode flattenhelp(TreeNode root){
+        if (root==null) return null;
+        TreeNode ll = flattenhelp(root.left);
+        TreeNode rr = flattenhelp(root.right);
+        root.left = null;
+        root.right = ll;
+        TreeNode tmp = root;
+        while (tmp.right!=null){
+            tmp = tmp.right;
+        }
+        tmp.right = rr;
+        return root;
+    }*/
+
+    public void flatten(TreeNode root) {
+
+    }
+
+
     public static void main(String[] args) throws CloneNotSupportedException {
         many m = new many();
-
+        System.out.println("aa");
        /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
         String line = sc.nextLine();
         System.out.println(line);*/
