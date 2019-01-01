@@ -2492,6 +2492,9 @@ public class many {
         flattenhelp(root);
     }
 
+
+
+
     public TreeNode flattenhelp(TreeNode root){
         if (root==null) return null;
         TreeNode ll = flattenhelp(root.left);
@@ -2507,13 +2510,86 @@ public class many {
     }*/
 
     public void flatten(TreeNode root) {
-
+        if(root!=null){
+            Stack<TreeNode> stack = new Stack<>();
+            TreeNode pre = root;
+            stack.push(root);
+            while (!stack.isEmpty()){
+                TreeNode node = stack.pop();
+                if (node.right!=null) stack.push(node.right);
+                if (node.left!=null) stack.push(node.left);
+                if (pre!=node){
+                    pre.left = null;
+                    pre.right = node;
+                    pre = node;
+                }
+            }
+        }
     }
 
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public ListNode sortList(ListNode head) {
+        if (head ==null || head.next ==null) return head;
+       ListNode slow = head,fast = head.next.next;
+       while (fast!=null && fast.next!=null){
+           fast = fast.next.next;
+           slow = slow.next;
+       }
+       ListNode tmp = sortList(slow.next);
+       slow.next = null;
+       return merge(sortList(head),tmp);
+    }
+
+    public ListNode merge(ListNode node1,ListNode node2){
+        ListNode head = new ListNode(-1);
+        ListNode pre = head;
+        while (node1!=null && node2!=null){
+            if (node1.val < node2.val){
+                pre.next = node1;
+                node1 = node1.next;
+            }else {
+                pre.next = node2;
+                node2 = node2.next;
+            }
+            pre = pre.next;
+        }
+        if (node1 != null){
+            pre.next = node1;
+        }
+        if(node2 !=null){
+            pre.next = node1;
+        }
+        return head.next;
+    }
+
+    public int findMaxForm(String[] strs, int m, int n) {
+        int len = strs.length;
+        int[][][] dp = new int[len+1][m+1][n+1];
+        int count0 = 0,count1 = 0;
+        for (int i = 1; i <= len; i++) {
+            String s = strs[i-1];
+            count0 = 0;
+            count1 = 0;
+            for (int p = 0,tmplen = s.length();p < tmplen;p++){
+                if (s.charAt(p)=='0') count0++;
+                else  count1++;
+            }
+            for (int tmpm = 0;tmpm <= m;tmpm++){
+                for (int tmpn = 0;tmpn <= n;tmpn++){
+                    if (count0 > tmpm || count1 > tmpn) dp[i][tmpm][tmpn] = dp[i-1][tmpm][tmpn];
+                    else dp[i][tmpm][tmpn] = Math.max(dp[i-1][tmpm][tmpn],dp[i-1][tmpm-count0][tmpn-count1]+1);
+                }
+            }
+        }
+        return dp[len][m][n];
+    }
+
+    public static void main(String[] args) {
         many m = new many();
-        System.out.println("aa");
+        String[] s = {"11","01","11","01"};
+        System.out.println(m.findMaxForm(s,2,2));
+
+        //System.out.println("aa");
        /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
         String line = sc.nextLine();
         System.out.println(line);*/
