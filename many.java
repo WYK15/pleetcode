@@ -2584,10 +2584,56 @@ public class many {
         return dp[len][m][n];
     }
 
+    public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        ArrayList<int[]> res = new ArrayList<>();
+        int len1 = nums1.length,len2 = nums2.length;
+        if (len1==0 || len2==0) return res;
+        PriorityQueue<int[]> queue = new PriorityQueue<>(len1*len2, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return (o1[0]+o1[1])-(o2[0]+o2[1]);
+            }
+        });
+
+        for (int i = 0;i < nums1.length;i++){
+            for (int j = 0;j < nums2.length;j++){
+                queue.add(new int[]{nums1[i],nums2[j]});
+            }
+        }
+        k = k > len1*len2 ? len1*len2 : k;
+        while (k-- > 0){
+            res.add(queue.poll());
+        }
+        return res;
+    }
+
+    public String predictPartyVictory(String senate) {
+        String union1 = "Radiant",union2 = "Dire";
+        LinkedList<Integer> rll = new LinkedList<>();
+        LinkedList<Integer> dll = new LinkedList<>();
+        int len = senate.length();
+        char[] arr = new char[len];
+        for (int i = 0; i < len; i++) {
+            arr[i] = senate.charAt(i);
+            if (arr[i] == 'R') {
+                rll.add(i);
+            }else{
+                dll.add(i);
+            }
+        }
+        while (!rll.isEmpty() && !dll.isEmpty()){
+            int rindex = rll.pollFirst();
+            int dindex = dll.pollFirst();
+            if (rindex < dindex) rll.addLast(rindex+len);
+            else dll.addLast(dindex+len);
+         }
+        return rll.isEmpty() ? union2 : union1;
+    }
+
     public static void main(String[] args) {
         many m = new many();
         String[] s = {"11","01","11","01"};
-        System.out.println(m.findMaxForm(s,2,2));
+        System.out.println(m.predictPartyVictory("RDD"));
 
         //System.out.println("aa");
        /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
