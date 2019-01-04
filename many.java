@@ -2630,6 +2630,13 @@ public class many {
         return rll.isEmpty() ? union2 : union1;
     }
 
+    public int rand10() {
+        int a = rand7();
+        int b = rand7();
+        if (a > 4 && b <4) return rand10();
+        else return (a+b)%10 + 1;
+    }
+
     public static void main(String[] args) {
         many m = new many();
         String[] s = {"11","01","11","01"};
