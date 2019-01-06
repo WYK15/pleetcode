@@ -2630,29 +2630,115 @@ public class many {
         return rll.isEmpty() ? union2 : union1;
     }
 
-    public int rand10() {
+  /*  public int rand10() {
         int a = rand7();
         int b = rand7();
         if (a > 4 && b <4) return rand10();
         else return (a+b)%10 + 1;
+    }*/
+
+    public int bulbSwitch(int n) {
+        return (int)Math.sqrt(n);
     }
+
+    //477
+    /*
+    public int totalHammingDistance(int[] nums) {
+        int len = nums.length;
+        int result = 0;
+        HashMap<String,Integer> hm = new HashMap<>();
+        for (int i = 0; i < len; i++) {
+            for (int j = i+1;j < len;j++){
+                if (nums[i] >= nums[j] ){
+                    if( hm.containsKey( String.valueOf(nums[j]).concat(String.valueOf(nums[i])) ) ){
+                        result += hm.get( String.valueOf(nums[j]).concat(String.valueOf(nums[i])) );
+                    }else {
+                        int tmp = HammingDistance(nums[j],nums[i]);
+                        hm.put(String.valueOf(nums[j]).concat(String.valueOf(nums[i])),tmp);
+                        result += tmp;
+                    }
+                }else {
+                    if (hm.containsKey(String.valueOf(nums[i]).concat(String.valueOf(nums[j])))){
+                        result += hm.get(String.valueOf(nums[i]).concat(String.valueOf(nums[j])));
+                    }else {
+                        int tmp = HammingDistance(nums[i],nums[j]);
+                        hm.put(String.valueOf(nums[i]).concat(String.valueOf(nums[j])),tmp);
+                        result += tmp;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    */
+
+    public int totalHammingDistance(int[] nums) {
+        int result = 0,len = nums.length;
+        for (int i = 0;i < 32;i++){
+            int count = 0;
+            for (int j = 0; j < len; j++) {
+                if ((nums[j] >> i&1)==1){
+                    count++;
+                }
+            }
+            result += count * (len - count);
+        }
+        return result;
+    }
+
+    public int[] findDiagonalOrder(int[][] matrix) {
+        if (matrix.length == 0) return new int[]{};
+        int row = matrix.length,col = matrix[0].length;
+        int i = 0,j = 0;
+        int index = 0;
+        int order = 1;//1向上 -1向下
+        int[] result = new int[row * col];
+        while ( i != row && j != col) {
+            result[index++] = matrix[i][j];
+            if (order == 1) {
+                if (i == 0 || j == col-1) {
+                    order *= (-1);
+                    //需要改变方向为-1
+                    if (j == col-1){
+                        i++;
+                    }else {
+                        j++;
+                    }
+                }else {
+                    i--;
+                    j++;
+                }
+            }else {
+               if (j == 0 || i == row-1){
+                   order *= (-1);
+                   if (i == row-1){
+                       j++;
+                   }else {
+                       i++;
+                   }
+               }else {
+                   i++;
+                   j--;
+               }
+            }
+        }
+        result[row * col -1] = matrix[row-1][col-1];
+        return result;
+    }
+
+
+    public int HammingDistance(int a, int b) {
+        int res = a ^ b;
+        int count = 0;
+        while (res != 0) {
+            count++;
+            res = res & (res-1);
+        }
+        return count;
+    }
+
 
     public static void main(String[] args) {
         many m = new many();
-        String[] s = {"11","01","11","01"};
-        System.out.println(m.predictPartyVictory("RDD"));
-
-        //System.out.println("aa");
-       /* Scanner sc = new Scanner(new BufferedInputStream(System.in));
-        String line = sc.nextLine();
-        System.out.println(line);*/
-      /* stu stu1 = new stu();
-       stu stu2 = (stu) stu1.clone();
-        System.out.println(stu1.name==stu2.name);*///false
-       /* int[] arr = {4,1,-1,2,-1,2,3};
-        List<Integer> list1 = m.topKFrequent(arr,2);
-        if (list1.size()!=0) for (int n:list1) System.out.println(n);
-        */
-        // m.dd();
     }
 }
