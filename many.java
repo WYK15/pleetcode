@@ -4,6 +4,7 @@ import sun.reflect.generics.tree.Tree;
 import javax.sound.sampled.Line;
 import java.io.BufferedInputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -2960,11 +2961,140 @@ public class many {
     }
 
 
+  /*  public List<Integer> lexicalOrder(int n) {
+        TreeSet<Integer> ts = new TreeSet<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if (o1 == o2) return 0;
+                String s1 = String.valueOf(o1),s2 = String.valueOf(o2);
+                int len1 = s1.length(),len2 = s2.length();
+                int len = Math.min(len1,len2);
+                for (int i = 0;i < len; i++) {
+                    if (s1.charAt(i) > s2.charAt(i)) return 1;
+                    if (s1.charAt(i) < s2.charAt(i)) return -1;
+                }
+                return len1 > len2 ? o2 : o1;
+            }
+        });
+
+        for (int i = 1; i <= n; i++) {
+            ts.add(i);
+        }
+
+        ArrayList<Integer> al = new ArrayList<>();
+        while (!ts.isEmpty()){
+            al.add(ts.pollFirst());
+        }
+        return al;
+    }*/
+
+    public List<Integer> lexicalOrder(int n) {
+        ArrayList<Integer> res = new ArrayList<>(n+1);
+        for (int i = 1;i <= 9 && i <= n;i++){
+            lexicalOrderhelp(res,n,i);
+        }
+        return res;
+    }
+
+    private void lexicalOrderhelp(List<Integer> res,int n,int i){
+        if (i <= n) res.add(i);
+        for (int j = 0;j <= 9;j++ )
+        {
+            if (i*10+j <= n) lexicalOrderhelp(res,n,i *10 + j);
+            else break;
+        }
+    }
+
+    class Solution {
+
+        public int[] nums;
+        public Solution(int[] nums) {
+            this.nums = nums;
+        }
+
+        public int pick(int target) {
+            ArrayList<Integer> al = new ArrayList<>();
+            for (int i = 0; i < nums.length; i++) {
+                int num = nums[i];
+                if (num == target) al.add(i);
+            }
+            return al.get(new Random().nextInt(al.size()));
+        }
+    }
+
+    /*public int findCircleNum(int[][] M) {
+        int len = M.length;
+        int[] position = new int[len];
+        Arrays.fill(position,-1);
+        ArrayList<HashSet<Integer>> al = new ArrayList<>();
+        for (int i = 0; i < len; i++) {
+            for (int j = 0;j < len;j++){
+                if (M[i][j] == 1){
+                    if (position[i]!=-1 && position[j] == -1) {
+                        al.get(position[i]).add(j);
+                        position[j] = position[i];
+                    }
+                    else if (position[i] == -1 && position[j] != -1) {
+                        al.get(position[j]).add(i);
+                        position[i] = position[j];
+                    }
+                    else if (position[i] == -1 && position[j] == -1) {
+                        HashSet<Integer> hs = new HashSet<>();
+                        hs.add(i); hs.add(j);
+                        al.add(hs);
+                        position[i] = al.size()-1;
+                        position[j] = position[i];
+                    } else {
+                        if (position[i] != position[j]) {
+                            for (Integer n : al.get(position[j])) {
+                                al.get(position[i]).add(n);
+                                position[n] = position[i];
+                            }
+                            al.set(position[j],null);
+                        }
+                    }
+                }
+            }
+        }
+    }*/
+
+    public int findCircleNum(int[][] M) {
+        int len = M.length;
+        LinkedList<HashSet<Integer>> ll = new LinkedList<>();
+        HashMap<Integer,HashSet<Integer>> hm = new HashMap<>(len+1);
+        for (int i = 0; i < len; i++) {
+            for (int j = 0;j < len;j++){
+                if (M[i][j] == 1){
+                    if (!hm.containsKey(i) && hm.containsKey(j)) {
+                        hm.get(j).add(i);
+                        hm.put(i,hm.get(j));
+                    }else  if (hm.containsKey(i) && !hm.containsKey(j)) {
+                        hm.get(i).add(j);
+                        hm.put(j,hm.get(i));
+                    }else if (!hm.containsKey(i) && !hm.containsKey(j)) {
+                        HashSet<Integer> hs = new HashSet<>();
+                        hs.add(i);hs.add(j);
+                        ll.add(hs);
+                        hm.put(i,hs);
+                        hm.put(j,hs);
+                    }else {
+                        if (hm.get(i) != hm.get(j)) {
+                            HashSet<Integer> tmp = hm.get(j);
+                            ll.remove(hm.get(j));
+                            for (int n : tmp){
+                                hm.get(i).add(n);
+                                hm.put(n,hm.get(i));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ll.size();
+    }
+
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-        System.out.println(m.subsetsWithDup(new int[]{1,2,2}));
-
-
     }
 }
