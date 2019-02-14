@@ -3058,7 +3058,7 @@ public class many {
         }
     }*/
 
-    public int findCircleNum(int[][] M) {
+/*    public int findCircleNum(int[][] M) {
         int len = M.length;
         LinkedList<HashSet<Integer>> ll = new LinkedList<>();
         HashMap<Integer,HashSet<Integer>> hm = new HashMap<>(len+1);
@@ -3091,6 +3091,76 @@ public class many {
             }
         }
         return ll.size();
+    }*/
+
+    public int findCircleNum(int[][] M) {
+        int len = M.length;
+        int[] visit = new int[len];
+        int count = 0;
+        for (int i = 0;i < len;i++){
+            if (visit[i] == 0) {
+                count++;
+                findCircleNumhelp(i,len,M,visit);
+            }
+        }
+        return count;
+    }
+
+    private void findCircleNumhelp(int n,int len,int[][] M,int[] visit){
+        visit[n] = 1;
+        for (int i = 0;i < len;i++) {
+            if (M[n][i] == 1 && visit[i]==0){
+                findCircleNumhelp(i,len,M,visit);
+            }
+        }
+    }
+
+
+    public ListNode[] splitListToParts(ListNode root, int k) {
+        int len = 0;
+        ListNode tmp = root,pre;
+        ListNode[] result = new ListNode[k];
+        while (tmp != null) {
+            len++;
+            tmp = tmp.next;
+        }
+        if (k >= len) {
+            tmp = root;
+            pre = root;
+            for (int i = 0;i < k;i++) {
+                result[i] = tmp;
+                if (tmp != null) {
+                    pre = tmp;
+                    tmp = tmp.next;
+                    pre.next = null;
+                }
+            }
+            return result;
+        }
+        int group1 = len / k,group2 = group1+1;
+        int m = 0;
+        while (true) {
+            if (m * group2 + (k-m) * group1 == len) break;
+            m++;
+        }
+        tmp = root;pre = root;
+        for (int i = 0;i < m;i++) {
+            result[i] = tmp;
+            for (int j = 0;j < group2;j++) {
+                pre = tmp;
+                tmp = tmp.next;
+            }
+            pre.next = null;
+        }
+        for (int i = m;i < k;i++) {
+            result[i] = tmp;
+            for (int j = 0;j < group1;j++) {
+                pre = tmp;
+                tmp = tmp.next;
+            }
+            pre.next = null;
+        }
+        return result;
     }
 
     public static void main(String[] args) {
