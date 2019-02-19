@@ -3163,8 +3163,74 @@ public class many {
         return result;
     }
 
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        int count = 0;
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for (int n : A)
+            for (int m : B)
+                hm.put(m+n,hm.getOrDefault(m+n,0)+1);
+        for (int m : C)
+            for (int n : D)
+                if (hm.containsKey(0-m-n)) count += hm.get(0-m-n);
+        return count;
+    }
+
+
+    public int deleteAndEarn(int[] nums) {
+        int len = nums.length;
+        int max = 0;
+        for (int n : nums){
+            if (n > max) max = n;
+        }
+        int[] arr = new int[max+1];
+        for (int n : nums) {
+            arr[n] += n;
+        }
+        int[] dp = new int[max+1];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0],arr[1]);
+        for (int i = 2; i <= max;i++){
+            dp[i] = Math.max(dp[i-2]+arr[i],dp[i-1]);
+        }
+        return dp[max];
+    }
+
+
+    public int scoreOfParentheses(String S) {
+        char[] arr = S.toCharArray();
+        char pre = '1';
+        Stack<Character> ope = new Stack<>();
+        Stack<Integer> value = new Stack<>();
+        for (int i = 0,len = arr.length; i < len; i++) {
+            char c = arr[i];
+            if (pre == ')' && c=='(' ) ope.push('+');
+            else if (pre == ')' && c == ')')
+                while (!ope.isEmpty()) {
+                    char p = ope.pop();
+                    if (p == '+') {
+                        value.push(value.pop() + value.pop());
+                    }else {
+                        value.push(value.pop() * 2);
+                        break;
+                    }
+                }
+            else if (pre == '(' && c == '(') ope.push('*');
+            else  value.push(1);
+            pre = c;
+        }
+        while (!ope.isEmpty()) {
+            char c = ope.pop();
+            if (c == '+') value.push(value.pop() + value.pop());
+            else value.push(value.pop() * 2);
+
+        }
+        return value.pop();
+    }
+
+
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
+        System.out.println(m.scoreOfParentheses("(())()"));
     }
 }
