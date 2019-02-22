@@ -3227,10 +3227,48 @@ public class many {
         return value.pop();
     }
 
+    public int numSquares(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+       int[] dp = new int[n+1];
+       dp[1] = 1;
+       dp[2] = 2;
+       for (int i =  3; i <= n;i++) {
+           int min = Integer.MAX_VALUE;
+           for (int j = 1; j * j<= i;j++) {
+               if ( j *j == i) {min  = 1;break;}
+               min = Math.min(dp[i - j*j]+dp[j*j],min);
+           }
+           dp[i] = min;
+       }
+       return dp[n];
+    }
+
+
+    public int numRabbits(int[] answers) {
+      int result = 0;
+      HashMap<Integer,Integer> hm = new HashMap<>();
+      for (int n : answers) {
+          if ( n == 0) {
+              result++ ;
+              continue;
+          }
+          hm.put(n,hm.getOrDefault(n,0)+1);
+          if (hm.get(n) % (n+1) == 1) {
+              result += (n+1);
+          }
+      }
+        return result;
+    }
+
+
+
 
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-        System.out.println(m.scoreOfParentheses("(())()"));
+        System.out.println(m.numRabbits(new int[]{0,0,1,1,1}));
     }
+
 }
