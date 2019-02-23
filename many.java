@@ -3262,7 +3262,22 @@ public class many {
         return result;
     }
 
-
+    public int numComponents(ListNode head, int[] G) {
+        HashSet<Integer> hs = new HashSet<>();
+        for (int n : G) hs.add(n);
+        ListNode p = head;
+        Boolean isbroken = true;
+        int result  = 0;
+        while (p != null) {
+            if (hs.contains(p.val) && isbroken) {
+                result++;
+                isbroken = false;
+            }
+            if (!hs.contains(p.val)) isbroken = true;
+            p = p.next;
+        }
+        return result;
+    }
 
 
     public static void main(String[] args) {
