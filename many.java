@@ -3279,11 +3279,59 @@ public class many {
         return result;
     }
 
+    public int openLock(String[] deadends, String target) {
+        int deadlen = deadends.length;
+        HashSet<String> deadset = new HashSet<>(deadlen);
+        HashSet<String> visited = new HashSet<>();
+        LinkedList<Map.Entry<Integer,String>> ll = new LinkedList<>();
+        int result = Integer.MAX_VALUE;
+        ll.add(new java.util.AbstractMap.SimpleEntry<Integer, String>(0,"0000"));
+        for (int i = 0; i < deadlen; i++) {
+            deadset.add(deadends[i]);
+        }
+        if (deadset.contains("0000")) return -1;
+        while (!ll.isEmpty()) {
+            Map.Entry<Integer,String> tmp = ll.pollFirst();
+            if (tmp.getValue().equals(target) && tmp.getKey() < result) result  = tmp.getKey();
+            if (tmp.getKey() > result) continue;
+            StringBuilder sb = new StringBuilder(tmp.getValue());
+            for (int i = 0;i < 4;i++) {
+                sb.setCharAt(i,openLockhelp(sb.charAt(i),'+'));
+                String s1 = sb.toString();
+                if (!deadset.contains(s1) && !visited.contains(s1))
+                {
+                    ll.add(new java.util.AbstractMap.SimpleEntry<Integer, String>(tmp.getKey()+1,s1));
+                    visited.add(s1);
+                }
+                sb.setCharAt(i,openLockhelp(sb.charAt(i),'-'));
+                sb.setCharAt(i,openLockhelp(sb.charAt(i),'-'));
+                s1 = sb.toString();
+                if (!deadset.contains(s1) && !visited.contains(s1))
+                {
+                    ll.add(new java.util.AbstractMap.SimpleEntry<Integer, String>(tmp.getKey()+1,s1));
+                    visited.add(s1);
+                }
+                sb.setCharAt(i,openLockhelp(sb.charAt(i),'+'));
+            }
+        }
+        return result == Integer.MAX_VALUE ? -1 : result;
+    }
+
+    private char openLockhelp(char  c,char ope) {
+        Character res = c;
+        if (ope == '+') {
+            return c == '9' ? '0' : (char)(c+1);
+        }else{
+            return c == '0' ? '9' : (char)(c-1);
+        }
+    }
+
 
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-        System.out.println(m.numRabbits(new int[]{0,0,1,1,1}));
+        System.out.println(m.openLock(new String[]{"8888"},"0009"));
+
     }
 
 }
