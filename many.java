@@ -3326,11 +3326,21 @@ public class many {
         }
     }
 
+    public int dd(int[] arr){
+        int result = 0;
+        for (int i = 0; i < 32;i++) {
+            int count = 0,tmp = 1 <<  i;
+            for (int n : arr)
+                if ((tmp & n) != 0) count++;
+            if (count % 3 !=0) result |= tmp;
+        }
+        return result;
+    }
 
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-        System.out.println(m.openLock(new String[]{"8888"},"0009"));
+       System.out.println(m.dd(new int[]{0,0,0,3,3,3,99}));
 
     }
 
