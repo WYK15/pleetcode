@@ -3337,6 +3337,26 @@ public class many {
         return result;
     }
 
+    public boolean findTarget(TreeNode root, int k) {
+        if (root == null) return false;
+        HashSet<Integer> hs = new HashSet<>();
+        findTarget(root,hs);
+        for (int n : hs) {
+            if (k-n != n && hs.contains(k-n)) return true;
+        }
+        return false;
+    }
+
+    public void findTarget(TreeNode t,HashSet<Integer> hs) {
+        if (t != null) {
+            hs.add(t.val);
+            findTarget(t.left, hs);
+            findTarget(t.right, hs);
+        }
+    }
+
+
+
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
