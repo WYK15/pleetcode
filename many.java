@@ -3356,6 +3356,18 @@ public class many {
         }
     }
 
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) return 0;
+        result = 0;
+        return sumOfLeftLeaves(root,result,false);
+    }
+
+    private int sumOfLeftLeaves(TreeNode node,int result,boolean flag){
+        if (flag && node.left == null && node.right == null) result += node.val;
+        result += ( (node.left != null ? sumOfLeftLeaves(node.left,result,true) : 0)
+                + (node.right != null ? sumOfLeftLeaves(node.right,result,false) : 0));
+        return result;
+    }
 
 
     public static void main(String[] args) {
