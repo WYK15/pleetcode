@@ -3358,7 +3358,7 @@ public class many {
 
     public int sumOfLeftLeaves(TreeNode root) {
         if (root == null) return 0;
-        result = 0;
+        int result = 0;
         return sumOfLeftLeaves(root,result,false);
     }
 
@@ -3369,11 +3369,35 @@ public class many {
         return result;
     }
 
+    public int[] twoSum(int[] numbers, int target) {
+        int left = 0,right = numbers.length-1;
+        while (left <= right) {
+            if (numbers[left] + numbers[right] == target) {
+                return new int[]{left+1,right+1};
+            }else if (numbers[left] + numbers[right] < target) left++;
+            else right--;
+        }
+        return new int[]{};
+    }
+
+
+    //在有序数组arr中，二分查找，返回找到的下表，找不到返回-1
+    public int dichotomyfind(int[] arr,int left,int right,int target){
+        if (target < arr[left] || target > arr[right]) return -1;
+        while (left <= right){
+            if (target == arr[left]) return left;
+            if (target == arr[right]) return right;
+            int mid = (left+right)>>1;
+            if (arr[mid] == target) return mid;
+             if (target > arr[mid])  left = mid+1;
+             if (target < arr[mid])  right = mid-1;
+        }
+        return -1;
+    }
 
     public static void main(String[] args) {
         many m = new many();
         //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-       System.out.println(m.dd(new int[]{0,0,0,3,3,3,99}));
 
     }
 
