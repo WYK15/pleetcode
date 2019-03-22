@@ -3457,6 +3457,52 @@ public class many {
         return zi/mu;
     }
 
+    public int orangesRotting(int[][] grid) {
+        int fresh = 0;
+        int row = grid.length;
+        if (row == 0) return 0;
+        int col = grid[0].length;
+        for (int i = 0;i < row;i++) {
+            for (int j = 0;j < col;j++) {
+                if (grid[i][j] == 1) fresh++;
+            }
+        }
+        int minutes = 0,times = 2;
+        while (fresh > 0) {
+            int tmp = fresh;
+            for (int i = 0;i < row;i++) {
+                for (int j = 0;j < col;j++) {
+                    if (grid[i][j] == times) {
+                        //up
+                        if (i-1 >= 0 && grid[i-1][j] == 1) {
+                            grid[i-1][j] = times+1;
+                            fresh--;
+                        }
+                        //down
+                        if (i+1 < row && grid[i+1][j] == 1) {
+                            grid[i+1][j] = times+1;
+                            fresh--;
+                        }
+                        //left
+                        if (j-1 >=0 && grid[i][j-1] == 1) {
+                            grid[i][j-1] = times+1;
+                            fresh--;
+                        }
+                        //right
+                        if (j+1 < col && grid[i][j+1] == 1){
+                            grid[i][j+1] = times+1;
+                            fresh--;
+                        }
+                    }
+                }
+            }
+            times++;
+            if (fresh == tmp) return -1;
+            minutes++;
+        }
+        return minutes;
+    }
+
 
     public static void main(String[] args) {
         many m = new many();
