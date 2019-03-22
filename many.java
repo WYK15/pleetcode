@@ -3417,6 +3417,15 @@ public class many {
     }
 
 
+    public boolean rotateString(String A, String B) {
+        if (A.equals(B)) return true;
+        int len1 = A.length(),len2 = B.length();
+        if (len1 != len2)  return  false;
+        A = A + A;
+        return A.contains(B);
+    }
+
+
     public static void main(String[] args) {
         many m = new many();
         System.out.println(m.isMonotonic(new int[]{2,2,2,1,4,5}));
