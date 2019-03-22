@@ -3425,10 +3425,42 @@ public class many {
         return A.contains(B);
     }
 
+    public int numPairsDivisibleBy60(int[] time) {
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        ArrayList<Integer> al = new ArrayList<>();
+        int result = 0;
+        for (int n : time) {
+            if (!hm.containsKey(n)) al.add(n);
+            hm.put(n,hm.getOrDefault(n,0)+1);
+        }
+        for (Map.Entry<Integer,Integer> entry : hm.entrySet()){
+            if ((entry.getKey()*2) % 60 == 0 && entry.getValue() >= 2) result += C(entry.getValue(),2);
+        }
+        for (int i = 0;i < al.size();i++) {
+            for (int j = i+1;j < al.size();j++) {
+                if ( (al.get(i)+ al.get(j) ) % 60 == 0 ) {
+                    result += hm.get(al.get(i)) * hm.get(al.get(j));
+                }
+            }
+        }
+        return result;
+    }
+
+    public int C(int A,int B) {
+        if (A < B) return 1;
+        int zi = 1,mu = 1;
+        for (int i = 1;i <= B;i++)
+        {
+            zi *= A--;
+            mu *= i;
+        }
+        return zi/mu;
+    }
+
 
     public static void main(String[] args) {
         many m = new many();
-        System.out.println(m.isMonotonic(new int[]{2,2,2,1,4,5}));
+        System.out.println(m.numPairsDivisibleBy60(new int[]{60,120,120,180,70,70}));
     }
 
 }
