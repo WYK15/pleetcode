@@ -3395,10 +3395,31 @@ public class many {
         return -1;
     }
 
+    //896
+    public boolean isMonotonic(int[] A) {
+        int len = A.length;
+        if (len == 1 || len == 2)  return true;
+        int di = 0,ns = 2;
+        for (int i = 1;i < len;i++) {
+            if (A[i] != A[0]) {
+                di = A[i]-A[0];
+                ns = i;
+                break;
+            }
+        }
+        if (di == 0) return true;
+        for (int i = ns+1; i < len; i++) {
+            if ( ((A[i] - A[i-1]) * di) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         many m = new many();
-        //System.out.println(m.flipgame(new int[]{1, 1}, new int[]{1, 2}));
-
+        System.out.println(m.isMonotonic(new int[]{2,2,2,1,4,5}));
     }
 
 }
