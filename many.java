@@ -1269,7 +1269,7 @@ public class many {
         TreeNode left;
         TreeNode right;
 
-        TreeNode(int x) {
+        public TreeNode(int x) {
             val = x;
         }
     }
@@ -3503,10 +3503,45 @@ public class many {
         return minutes;
     }
 
+    public String reverseOnlyLetters(String S) {
+        char[] arr = S.toCharArray();
+        int left = 0,right = S.length()-1;
+        if (right == 0) return S;
+        while (left < right) {
+            while (!Character.isAlphabetic(arr[left]) && left < right) left++;
+            while (!Character.isAlphabetic(arr[right]) && left < right) right--;
+            char tmp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = tmp;
+            left++;
+            right--;
+        }
+        return new String(arr);
+    }
+
+
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        return isSubtree(s,t,false);
+    }
+
+    public boolean isSubtree(TreeNode s, TreeNode t,boolean haveto) {
+        if (s == null && t == null) return true;
+        if (s == null && t != null) return false;
+        if (t == null && s != null) return false;
+        if (haveto && s.val != t.val) return false;
+        if (s.val == t.val) {
+            return (isSubtree(s.left,t.left,true) && isSubtree(s.right,t.right,true))||
+                    (isSubtree(s.left,t,false) || isSubtree(s.right,t,false));
+        }else {
+            return isSubtree(s.left,t,false) || isSubtree(s.right,t,false);
+        }
+    }
+
 
     public static void main(String[] args) {
         many m = new many();
-        System.out.println(m.numPairsDivisibleBy60(new int[]{60,120,120,180,70,70}));
+
+
     }
 
 }
