@@ -19,29 +19,40 @@ public class many {
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists == null || lists.length == 0) return null;
-        boolean hasremain = true;/**/
-        ListNode head = new ListNode(0);
-        ListNode pre = head;
-        int index = 0;
-        while (hasremain) {
-            hasremain = false;
-            int min = Integer.MAX_VALUE;
-            for (int i = 0; i < lists.length; i++) {
-                if (lists[i] != null) {
-                    hasremain = true;
-                    if (lists[i].val < min) {
-                        index = i;
-                        min = lists[i].val;
-                    }
-                }
+        int len = lists.length;
+        if (len == 0) return null;
+        if (len == 1 ) return lists[0];
+        for (int inter = 1;inter < len; inter*=2){
+            for (int i = 0;i < len;i += inter * 2) {
+                lists[i] = mergeTwoLists(lists[i],i+inter < len ? lists[i+inter] : null);
             }
-            if (hasremain) {
-                ListNode now = new ListNode(min);
-                lists[index] = lists[index].next;
-                now.next = null;
-                pre.next = now;
-                pre = now;
+        }
+        return lists[0];
+    }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head= new ListNode(0);
+        ListNode pre =  head;
+        while (l1 != null|| l2 != null)
+        {
+            if (l1 == null) {
+                pre.next = l2;
+                pre = l2;
+                l2 = l2.next;
+            }else if (l2 == null){
+                pre.next = l1;
+                pre = l1;
+                l1 = l1.next;
+            }else {
+                if (l1.val < l2.val) {
+                    pre.next = l1;
+                    pre = l1;
+                    l1 = l1.next;
+                }else {
+                    pre.next = l2;
+                    pre = l2;
+                    l2 = l2.next;
+                }
             }
         }
         return head.next;
@@ -3537,11 +3548,26 @@ public class many {
         }
     }
 
+    public int maxProfit(int[] prices) {
+        int len = prices.length;
+        if (len == 0 || len == 1) return 0;
+        int result = 0;
+        int[] max = new int[len];
+        max[len-1] = prices[len-1];
+        for (int i = len -2 ;i >= 1;i--)
+        {
+            max[i] =   prices[i] > max[i+1] ? prices[i] : max[i+1];
+        }
+        for (int i  = 0;i < len-1;i++){
+            result = Math.max(max[i+1] - prices[i],result);
+        }
+        return result;
+    }
+
+
 
     public static void main(String[] args) {
         many m = new many();
-
-
     }
 
 }
