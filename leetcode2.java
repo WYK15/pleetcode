@@ -38,6 +38,20 @@ public class leetcode2 {
         return  num < 0 ?  "-"+sb.toString() : sb.toString();
     }
 
+    public boolean isOneBitCharacter(int[] bits) {
+        int len = bits.length;
+        if (len==0) return false;
+        if (len == 1) return bits[0] == 0 ? true : false;
+        int i = 0;
+        while (i < len){
+            if (bits[i] == 1) {
+                if (i+2 >= len) return false;
+                i += 2;
+            }else i++;
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
