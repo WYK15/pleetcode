@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 public class leetcode2 {
@@ -72,10 +75,32 @@ public class leetcode2 {
         return jinwei == 1 ? "1"+new String(arr) : new String(arr);
     }
 
+    public List<Integer> addToArrayForm(int[] A, int K) {
+        String num2 = String.valueOf(K);
+        int len1 = A.length,len2 = num2.length();
+        LinkedList<Integer> res = new LinkedList<Integer>();
+        int index = Math.max(len1,len2) - 1;
+        int jinwei = 0,tmp;
+        for (int i = len1-1,j = len2-1;i >=0 || j >=0;j--,i--)
+        {
+            if (i < 0){
+                tmp = (num2.charAt(j) - '0' + jinwei);
+            }else if (j < 0){
+                tmp = A[i] + jinwei;
+            }else {
+                tmp = A[i] + num2.charAt(j) -'0'+jinwei;
+            }
+            jinwei = tmp/10;
+            res.addFirst(tmp % 10);
+            index--;
+        }
+        if (jinwei==1) res.addFirst(1);
+        return res;
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-
     }
 
 
