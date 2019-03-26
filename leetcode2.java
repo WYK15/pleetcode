@@ -52,6 +52,26 @@ public class leetcode2 {
         return true;
     }
 
+    public String addStrings(String num1, String num2) {
+        int len1 =  num1.length(),len2 = num2.length();
+        char[] arr = new char[Math.max(len1,len2)];
+        int index = Math.max(len1,len2) - 1;
+        int jinwei = 0,tmp;
+        for (int i = len1-1,j = len2-1;i >=0 || j >=0;j--,i--)
+        {
+            if (i < 0){
+                tmp = (num2.charAt(j) - '0' + jinwei);
+            }else if (j < 0){
+                tmp = num1.charAt(i) - '0' + jinwei;
+            }else {
+                tmp = num1.charAt(i) + num2.charAt(j) -'0'-'0'+jinwei;
+            }
+            jinwei = tmp/10;
+            arr[index--] = (char)( (tmp % 10) + '0');
+        }
+        return jinwei == 1 ? "1"+new String(arr) : new String(arr);
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
