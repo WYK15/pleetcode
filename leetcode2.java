@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class leetcode2 {
 
@@ -75,7 +72,7 @@ public class leetcode2 {
         return jinwei == 1 ? "1"+new String(arr) : new String(arr);
     }
 
-    public List<Integer> addToArrayForm(int[] A, int K) {
+    /*public List<Integer> addToArrayForm(int[] A, int K) {
         String num2 = String.valueOf(K);
         int len1 = A.length,len2 = num2.length();
         LinkedList<Integer> res = new LinkedList<Integer>();
@@ -96,13 +93,107 @@ public class leetcode2 {
         }
         if (jinwei==1) res.addFirst(1);
         return res;
+    }*/
+
+    public int[] addToArrayForm(int[] A, int K) {
+        String num2 = String.valueOf(K);
+        int len1 = A.length,len2 = num2.length(),maxlen = Math.max(len1,len2);
+        int[] res = new int[maxlen+1];
+        int index = maxlen;
+        int jinwei = 0,tmp;
+        for (int i = len1-1,j = len2-1;i >=0 || j >=0;j--,i--)
+        {
+            if (i < 0){
+                tmp = (num2.charAt(j) - '0' + jinwei);
+            }else if (j < 0){
+                tmp = A[i] + jinwei;
+            }else {
+                tmp = A[i] + num2.charAt(j) -'0'+jinwei;
+            }
+            jinwei = tmp/10;
+            res[index--] = tmp%10;
+        }
+        if (jinwei==1) res[0] = 1;
+        else res = Arrays.copyOfRange(res,1,maxlen+1);
+        return res;
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        for (int p = 0; p < numRows;p++){
+            ArrayList<Integer> tmp = new ArrayList<>();
+            for (int i = 0;i <= numRows;i++) {
+                tmp.add(i == 0 || i == numRows ? 1 : res.get(numRows-1).get(i-1)+res.get(numRows-1).get(i-2));
+            }
+            res.add(tmp);
+        }
+        return res;
+    }
+
+    public boolean isPowerOfTwo(int n) {
+        if (n <= 0) return false;
+        while (n != 1) {
+            n >>= 2;
+            if (n % 2 != 0) return false;
+        }
+        return true;
+    }
+
+    public boolean repeatedSubstringPattern(String s) {
+        int len = s.length();
+        if (len == 0 || len == 1) return false;
+        boolean flag = true;
+        String regex;
+        for (int i = 1; i < len;i++) {
+            if ( (len - i) % i == 0) {
+                regex = s.substring(0,i);
+                flag = true;
+                for (int j = i;j < len;j+=i) {
+                    if (!s.substring(j,j+i).equals(regex)) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) return true;
+            }
+        }
+        return false;
+    }
+
+
+    public List<List<Integer>> largeGroupPositions(String S) {
+        int start = 0,end = 0,len = S.length();
+        List<List<Integer>> res = new ArrayList<>();
+        if (len < 3)  return  res;
+        char[] arr = S.toCharArray();
+        for (int i = 1 ; i < len;i++) {
+            if (arr[i]!= arr[end]){
+                if (end - start >= 2){
+                    ArrayList<Integer> al = new ArrayList<Integer>();
+                    al.add(start);
+                    al.add(end);
+                    res.add(al);
+                }
+                start = i;
+                end = i;
+            }else {
+                end++;
+            }
+        }
+        if (end == len-1 && end - start >= 2){
+            ArrayList<Integer> al = new ArrayList<Integer>();
+            al.add(start);
+            al.add(end);
+            res.add(al);
+        }
+        return res;
     }
 
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-    }
 
+    }
 
 
 }
