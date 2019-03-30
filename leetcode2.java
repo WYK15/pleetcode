@@ -13,8 +13,8 @@ public class leetcode2 {
 
     class TreeNode {
         int val;
-        leetcode1.TreeNode left;
-        leetcode1.TreeNode right;
+        TreeNode left;
+        TreeNode right;
 
         public TreeNode(int x) {
             val = x;
@@ -189,10 +189,66 @@ public class leetcode2 {
         return res;
     }
 
+    private int diameter = 0;
+    public int diameterOfBinaryTree(TreeNode root) {
+        diameterOfBinaryTreehelp(root);
+        return diameter;
+    }
+
+    public int diameterOfBinaryTreehelp(TreeNode node) {
+        if (node == null) return 0;
+        int left = diameterOfBinaryTreehelp(node.left);
+        int right = diameterOfBinaryTreehelp(node.right);
+        diameter = Math.max(left+right,diameter);
+        return Math.max(left,right)+1;
+    }
+
+
+    public boolean isPowerOfFour(int num) {
+        return num > 0 && (num & (num-1)) == 0 && (num & 0x55555555) == num;
+    }
+
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        int len1 = list1.length,len2 = list2.length;
+        HashMap<String,Integer> hs1 = new HashMap<>(len1);
+        HashMap<String,Integer> hs2 = new HashMap<>(len2);
+        HashMap<String,Integer> hs3 = new HashMap<>(Math.min(len1,len2));
+        int result = Integer.MAX_VALUE;
+        String[] ss = new String[Math.min(len1,len2)];
+        int ssindex = 0;
+        for (int i = 0;i < len1;i++){
+            hs1.put(list1[i],i);
+        }
+        for (int j = 0;j < len2;j++) {
+            hs2.put(list2[j],j);
+        }
+        if (len1 > len2) {
+            for (Map.Entry<String,Integer> en:hs2.entrySet()){
+                String s = en.getKey();
+                if (hs1.containsKey(s) && hs1.get(s)+en.getValue() <= result){
+                    result = hs1.get(s)+en.getValue();
+                    hs3.put(s,hs1.get(s)+en.getValue());
+                }
+            }
+        }else {
+            for (Map.Entry<String,Integer> en:hs1.entrySet()){
+                String s = en.getKey();
+                if (hs2.containsKey(s) && hs2.get(s)+en.getValue() <= result){
+                    result = hs2.get(s)+en.getValue();
+                    hs3.put(s,hs2.get(s)+en.getValue());
+                }
+            }
+        }
+        for (Map.Entry<String,Integer> map : hs3.entrySet()){
+            if (map.getValue() == result) ss[ssindex++] = map.getKey();
+        }
+        return Arrays.copyOfRange(ss,0,ssindex);
+    }
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-
+        System.out.println(m.isPowerOfFour(64));
+        System.out.println(m.isPowerOfFour(15));
     }
 
 
