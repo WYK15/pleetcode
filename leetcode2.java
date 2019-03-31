@@ -245,10 +245,115 @@ public class leetcode2 {
         return Arrays.copyOfRange(ss,0,ssindex);
     }
 
+    public int[] findErrorNums(int[] nums) {
+        HashSet<Integer> hm = new HashSet<>();
+        int[] res = new int[2];
+        int len = nums.length;
+        for (int i = 0;i < len;i++) {
+            if (hm.contains(nums[i])){
+                res[0] = nums[i];
+            }else {
+                hm.add(nums[i]);
+            }
+        }
+        for (int i = 1; i <= len;i++ )
+        {
+            if (!hm.contains(i)){
+                res[1] = i;
+                break;
+            }
+        }
+        return res;
+    }
+
+    public List<LinkedList<Integer>> A(int[] arr){
+        if (arr.length==1) {
+            List<LinkedList<Integer>> res = new ArrayList<>();
+            LinkedList<Integer> a = new LinkedList<Integer>(){{add(arr[0]);}};
+            res.add(a);
+            return res;
+        }
+        List<LinkedList<Integer>> res = new ArrayList<>();
+        for (int i = 0;i < arr.length;i++) {
+            swap(i,0,arr);
+            List<LinkedList<Integer>> al = A(Arrays.copyOfRange(arr,1,arr.length));
+            for (LinkedList<Integer> tmp : al) {
+                LinkedList tmp1 = new LinkedList<>(tmp);
+                tmp1.addFirst(arr[0]);
+                res.add(tmp1);
+            }
+            swap(i,0,arr);
+        }
+        return  res;
+    }
+
+    public void swap(int index1,int index2,int[] arr){
+        if (index1 != index2){
+        int tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
+
+        }
+    }
+
+    public boolean isIsomorphic(String s, String t) {
+        int len = s.length();
+        HashMap<Character,Character> hs = new HashMap<>();
+        for (int i = 0;i < len;i++){
+            char a = s.charAt(i),b = t.charAt(i);
+               if (hs.containsKey(a) && hs.get(a) != b ){
+                   return false;
+               }
+               if (!hs.containsKey(a)){
+                   if (hs.containsValue(b)) return false;
+                   else hs.put(a,b);
+               }
+
+        }
+        return true;
+    }
+
+    public String addBinary(String a, String b) {
+        char[] arr = new char[Math.max(a.length(),b.length())+1];
+        int arrindex = arr.length-1,jinwei = 0,he;
+        for (int i = a.length()-1,j = b.length()-1;i >= 0 || j >= 0;i--,j--){
+            if (i < 0) {
+                he = b.charAt(j) - '0' + jinwei;
+            }else if (j < 0) {
+                he = a.charAt(i) - '0' + jinwei;
+            }else {
+                he = a.charAt(i) - '0' + b.charAt(j) - '0' + jinwei;
+            }
+
+            jinwei = he / 2;
+            arr[arrindex--] = (char)((he % 2) + '0');
+
+        }
+        if(jinwei==1) arr[0] = '1';
+        return jinwei == 1 ?  new String(arr) : new String(Arrays.copyOfRange(arr,1,arr.length));
+    }
+
+    public boolean wordPattern(String pattern, String str) {
+        HashMap<Character,String> hm = new HashMap<>();
+        String[] arr = str.split(" ");
+        if (pattern.length()!=arr.length) return false;
+        for (int i = 0;i < pattern.length();i++){
+            char c = pattern.charAt(i);
+            if (!hm.containsKey(c)){
+                if (hm.containsValue(arr[i])) return false;
+                hm.put(c,arr[i]);
+            }else {
+                if (!hm.get(c).equals(arr[i])){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.isPowerOfFour(64));
-        System.out.println(m.isPowerOfFour(15));
+        System.out.println(m.addBinary("0","0"));
     }
 
 
