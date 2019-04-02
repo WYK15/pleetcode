@@ -351,9 +351,103 @@ public class leetcode2 {
         return true;
     }
 
+    public int searchInsert(int[] nums, int target) {
+        int left = 0,right = nums.length-1,mid;
+        if (right == -1) return 0;
+        while (left < right) {
+            mid = (left + right) >> 1;
+            if (nums[mid] == target)  return mid;
+            if (nums[mid] < target) {
+                left = mid+1;
+            }
+            if(nums[mid] > target){
+                right = mid-1;
+            }
+        }
+        if (nums[left] == target) return left;
+        if (nums[left] > target) return left == 0 ? 0 :left-1;
+        else return left+1;
+
+    }
+
+    public int hammingWeight(int n) {
+        int result = 0;
+        for ( int i = 0; i < 32;i++) {
+            if ((n & 0x00000001) == 1) result++;
+            n >>= 1;
+        }
+        return result;
+    }
+
+    public char nextGreatestLetter(char[] letters, char target) {
+        int len = letters.length;
+        if (target < letters[0] || target > letters[len-1]) {
+            return letters[0];
+        }
+        for (int i = 0; i < len;i++) {
+            if (letters[i] > target) return letters[i];
+        }
+        return letters[0];
+    }
+
+    class BSTIterator {
+
+        LinkedList<TreeNode> ll = new LinkedList<TreeNode>();
+
+        public BSTIterator(TreeNode root) {
+            while(root!=null) {
+                ll.add(root);
+                root = root.left;
+            }
+        }
+
+        /** @return the next smallest number */
+        public int next() {
+            TreeNode now = ll.pollFirst();
+            TreeNode tmp = now.left;
+            while (tmp!=null){
+                ll.add(tmp);
+                tmp = tmp.left;
+            }
+            return now.val;
+        }
+
+        /** @return whether we have a next smallest number */
+        public boolean hasNext() {
+            return ll.isEmpty();
+        }
+    }
+
+    public List<List<String>> findDuplicate(String[] paths) {
+        HashMap<String,List<String>> hm = new HashMap<>();
+        String content = "",filename = "";
+        String[] detail,tmp;
+        for (String path : paths) {
+            detail = path.split(" ");
+            for (int i = 1,len = detail.length; i < len;i++)
+            {
+                tmp = detail[i].split("[\\(||)]");
+                filename = tmp[0];
+                content = tmp[1];
+                if (!hm.containsKey(content)) {
+                    List<String> l = new LinkedList<String>();
+                    l.add(detail[0]+"/"+filename);
+                    hm.put(content,l);
+                }else {
+                    hm.get(content).add(detail[0]+"/"+filename);
+                }
+            }
+        }
+        List<List<String>> res = new LinkedList<>();
+        for (List<String> l : hm.values()){
+            if (l.size()>1 )res.add(l);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.addBinary("0","0"));
+
     }
 
 
