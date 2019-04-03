@@ -555,6 +555,20 @@ public class leetcode2 {
         return xvalue == 0 ? value ==0 ? "Infinite solutions":  "No solution" : "x="+value/xvalue;
     }
 
+    //926
+    public int minFlipsMonoIncr(String S) {
+        char[] arr = S.toCharArray();
+        int one_count =0,one_front = 0,len = arr.length,result ;
+        for (int i = 0;i < len;i++){
+            if (arr[i] == '1') one_count++;
+        }
+        result = Math.min(one_count,len-one_count);
+        for (int i = 0;i < len;i++){
+            if (arr[i] == '1') one_front++;
+            result = Math.min(one_front + len - i -1- (one_count-one_front),result);
+        }
+        return result;
+    }
 
 
     public static void main(String[] args) {
