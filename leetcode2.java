@@ -445,9 +445,121 @@ public class leetcode2 {
         return res;
     }
 
+        HashMap<Integer,Integer> hm = new HashMap<>();
+    public int[] findMode(TreeNode root) {
+        if (root == null) return new int[]{};
+        findModeh(root);
+        int index = 0,max = 0,count = 0;
+        for (Integer n : hm.values()){
+            if (n > max){
+                count = 0;
+                max = n;
+            }
+            if (n == max){
+                count++;
+            }
+        }
+        int[] result = new int[count];
+        for (Integer n : hm.keySet()){
+            if (hm.get(n) == max) result[index++] = n;
+        }
+        return result;
+
+    }
+
+    public void findModeh(TreeNode root) {
+        if (root!=null) {
+            hm.put(root.val,hm.getOrDefault(root.val,0)+1);
+            findModeh(root.left);
+            findModeh(root.right);
+        }
+    }
+
+    public String solveEquation(String equation) {
+        int index = 0,len = equation.length();
+        String[] eq = equation.split("=");
+        String left = eq[0],right = eq[1];
+        int len1 = left.length(),len2 = right.length();
+        int xvalue=0,value=0;
+        while (index < len1) {
+            char c  = left.charAt(index);
+            String s = "";
+            int ope = index-1;
+            if (Character.isDigit(c)){
+                while (index < len1 && Character.isDigit(left.charAt(index))){
+                    s += left.charAt(index);
+                    index++;
+                }
+                index--;
+                if (index+1 >= len1 || left.charAt(index+1)!='x'){
+                    //不带x
+                    if (ope < 0 || left.charAt(ope) == '+'){
+                        value -= Integer.valueOf(s);
+                    }else {
+                        value += Integer.valueOf(s);
+                    }
+                    index++;
+                }else {
+                    //带x
+                    if (ope<0 || left.charAt(ope)=='+'){
+                        xvalue += Integer.valueOf(s);
+                    }else {
+                        xvalue -= Integer.valueOf(s);
+                    }
+                    index += 2;
+                }
+            }
+            if (c == 'x'){
+                if (index -1 < 0 || left.charAt(index-1)=='+') xvalue++;
+                else xvalue--;
+                index++;
+            }
+            if (c == '+' || c == '-') index++;
+        }
+        index = 0;
+        while (index < len2) {
+            char c  = right.charAt(index);
+            int ope = index-1;
+            String s = "";
+            if (Character.isDigit(c)){
+                while (index < len2 && Character.isDigit(right.charAt(index))){
+                    s += right.charAt(index);
+                    index++;
+                }
+                index--;
+                if (index+1 >= len2 || right.charAt(index+1)!='x'){
+                    //不带x
+                    if (ope < 0 || right.charAt(ope) == '+'){
+                        value += Integer.valueOf(s);
+                    }else {
+                        value -= Integer.valueOf(s);
+                    }
+                    index++;
+                }else {
+                    //带x
+                    if (ope<0 || right.charAt(ope)=='+'){
+                        xvalue -= Integer.valueOf(s);
+                    }else {
+                        xvalue += Integer.valueOf(s);
+                    }
+                    index += 2;
+                }
+            }
+            if (c == 'x'){
+                if (ope < 0 || right.charAt(ope)=='+') xvalue--;
+                else xvalue++;
+                index++;
+            }
+            if (c == '+' || c == '-') index++;
+        }
+        return xvalue == 0 ? value ==0 ? "Infinite solutions":  "No solution" : "x="+value/xvalue;
+    }
+
+
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-
+        System.out.println(m.solveEquation("3x=33+22+11"));
     }
 
 
