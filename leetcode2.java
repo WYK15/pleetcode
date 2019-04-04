@@ -570,10 +570,48 @@ public class leetcode2 {
         return result;
     }
 
+    //贪心  646
+  /*  public int findLongestChain(int[][] pairs) {
+        int len = pairs.length;
+        if (len == 1 ) return 1;
+        Arrays.sort(pairs, (a,b)->a[1]-b[1]);
+        int start = pairs[0][1],result = 0;
+        for (int i = 0;i < len;i++) {
+            if (pairs[i][0] > start){
+                result++;
+                start = pairs[i][1];
+            }
+        }
+
+        return result;
+    }*/
+
+    //动态规划 646
+    public int findLongestChain(int[][] pairs) {
+        int len = pairs.length;
+        if (len == 1 ) return 1;
+        Arrays.sort(pairs, (a,b)->a[0]-b[0]);
+        int[] dp = new int[len];
+        Arrays.fill(dp,1);
+        int result = 1;
+        for (int i = 0; i < len;i++) {
+            for (int j = 0; j < len;j++) {
+                if (pairs[i][0] > pairs[j][1]) {
+                    dp[i] = Math.max(dp[j]+1,result);
+                }
+            }
+        }
+        int max = Integer.MIN_VALUE;
+        for (int i : dp) {
+            max = Math.max(i,max);
+        }
+        return max;
+    }
+
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.solveEquation("3x=33+22+11"));
     }
 
 
