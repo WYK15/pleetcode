@@ -608,6 +608,44 @@ public class leetcode2 {
         return max;
     }
 
+    public String replaceWords(List<String> dict, String sentence) {
+        StringBuilder sb = new StringBuilder();
+        HashSet<String> hs = new HashSet<>();
+        boolean t1  = false;
+        for (String s : dict) {
+            t1 = false;
+            for (String t : hs) {
+                if (s.startsWith(t)) {
+                    t1 = true;
+                    break;
+                }
+            }
+            if (!t1) hs.add(s);
+        }
+        String[] arr = sentence.split(" ");
+        boolean issu = false;
+        String root = "";
+        for (String a : arr){
+            //判断是否是继承词
+            issu = false;
+            for ( String prefix : hs) {
+                if (a.startsWith(prefix)) {
+                    issu = true;
+                    root = prefix;
+                    break;
+                }
+            }
+            if (issu) {
+                sb.append(root);
+            }else {
+                sb.append(a);
+            }
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return new String(sb);
+    }
+
 
 
     public static void main(String[] args) {
