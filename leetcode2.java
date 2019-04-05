@@ -646,6 +646,32 @@ public class leetcode2 {
         return new String(sb);
     }
 
+    //931
+    public int minFallingPathSum(int[][] A) {
+        int row = A.length;
+        if (row == 0) return 0;
+        int col = A[0].length;
+        int[][] dp = new int[row][col];
+        for (int i = 0;i < col;i++) {
+            dp[row-1][i] = A[row-1][i];
+        }
+        for (int r = row-2;r >= 0;r--){
+            for (int c = 0; c < col;c++) {
+                if (c == 0) dp[r][c] = Math.min(dp[r+1][0],1 < col ? dp[r+1][1] : dp[r+1][0])+A[r][c];
+                else if (c == col-1){
+                    dp[r][c] = A[r][c] + Math.min(dp[r+1][c-1],dp[r+1][c]);
+                }
+                else {
+                    dp[r][c] = Math.min(Math.min(dp[r+1][c-1],dp[r+1][c]),c < col ? dp[r+1][c+1] : dp[r+1][c])+A[r][c];
+                }
+            }
+        }
+        int max = dp[0][0];
+        for (int i = 0; i < col;i++) {
+            max = Math.min(dp[0][i],max);
+        }
+        return max;
+    }
 
 
     public static void main(String[] args) {
