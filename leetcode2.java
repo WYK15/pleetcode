@@ -673,6 +673,22 @@ public class leetcode2 {
         return max;
     }
 
+    public int[] nextGreaterElements(int[] nums) {
+        int len = nums.length;
+        int[] result = new int[len];
+        if (len == 0) return result;
+        Arrays.fill(result,-1);
+        for (int i = 0; i < len;i++) {
+            for (int j = i+1;j < i+ len;j++) {
+                if (nums[j % len] > nums[i]){
+                    result[i] = nums[j % len];
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
