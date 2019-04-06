@@ -11,6 +11,7 @@ public class leetcode2 {
         }
     }
 
+
     class TreeNode {
         int val;
         TreeNode left;
@@ -675,16 +676,19 @@ public class leetcode2 {
 
     public int[] nextGreaterElements(int[] nums) {
         int len = nums.length;
-        int[] result = new int[len];
-        if (len == 0) return result;
-        Arrays.fill(result,-1);
-        for (int i = 0; i < len;i++) {
-            for (int j = i+1;j < i+ len;j++) {
-                if (nums[j % len] > nums[i]){
-                    result[i] = nums[j % len];
-                    break;
-                }
+        if (len == 0) return new int[]{};
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        for (int i = 1; i < len << 1 ;i++) {
+            while ( !stack.isEmpty() &&  i > stack.peek() && nums[i % len] > nums[stack.peek() % len]) {
+                if (!hm.containsKey(stack.peek())) hm.put(stack.pop(),i % len);
             }
+            stack.push(i);
+        }
+        int[] result = new int[len];
+        for (int i = 0; i < len;i++) {
+            result[i] = hm.containsKey(i) ?  nums[hm.get(i)] : -1;
         }
         return result;
     }
@@ -710,6 +714,7 @@ public class leetcode2 {
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
+
     }
 
 
