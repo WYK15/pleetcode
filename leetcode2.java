@@ -4,7 +4,7 @@ public class leetcode2 {
 
     public static class ListNode {
         int val;
-        leetcode1.ListNode next;
+        ListNode next;
 
         ListNode(int x) {
             val = x;
@@ -711,10 +711,76 @@ public class leetcode2 {
         return result;
     }
 
+    public int[] nextLargerNodes(ListNode head) {
+        if (head==null) return new int[]{};
+        HashMap<ListNode,Integer> hm = new HashMap<>();
+        Stack<ListNode> stack = new Stack<>();
+        stack.push(head);
+        ListNode tmp = head.next;
+        int count = 1;
+        while (tmp!=null) {
+            while (!stack.isEmpty() && tmp.val > stack.peek().val){
+                hm.put(stack.pop(),tmp.val);
+            }
+            stack.push(tmp);
+            tmp = tmp.next;
+            count++;
+        }
+
+        int[] result = new int[count];
+        tmp = head;
+        int index = 0;
+        while (tmp!=null){
+            result[index++] = hm.getOrDefault(tmp,0);
+            tmp = tmp.next;
+        }
+        return result;
+    }
+
+
+    public int networkDelayTime(int[][] times, int N, int K) {
+        int[] dist = new int[N+1];
+        dist[K] = -1;
+        boolean[] flag = new boolean[N+1];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        flag[K] = true;
+        int count = N;
+        for (int i = 0;i < times.length;i++) {
+            if (times[i][0] == K ) {
+                dist[times[i][1]] = times[i][2];
+            }
+        }
+
+        while ( count > 0){
+            //从no中挑选一个v 距离值最小的 加入 yes中
+            int tmpmin = 0;
+            for (int i = 1;i < dist.length;i++) {
+                if (!flag[i] && dist[i] < dist[tmpmin]) tmpmin = i;
+            }
+            count--;
+            if (dist[tmpmin] == Integer.MAX_VALUE) break;
+            flag[tmpmin] = true;
+
+            //修改在no中和v相连的所有节点的权值
+            for (int j = 0;j < times.length;j++) {
+                if (times[j][0] == tmpmin) {
+                    dist[times[j][1]] = Math.min(dist[times[j][1]],dist[tmpmin] + times[j][2]);
+                }
+            }
+        }
+        int max = -1;
+        for (int i = 1;i < dist.length;i++) {
+            max = Math.max(dist[i],max);
+        }
+
+        return max == Integer.MAX_VALUE ? -1 : max;
+    }
+
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-
+        System.out.println(e.getKey());
     }
 
 
