@@ -776,11 +776,31 @@ public class leetcode2 {
         return max == Integer.MAX_VALUE ? -1 : max;
     }
 
+    public int findNthDigit(int n) {
+        if(n <= 9) return n;
+        int nlen = 1;
+        long nine = 9;
+        while ( ( n - nlen * nine) > 0) {
+            n = (int) (n - nlen * nine);
+            nlen++;
+            nine *= 10;
+        }
+
+        int in = n % nlen;
+        int bias = n / nlen;
+        long num = (long)Math.pow(10,nlen-1) + (in == 0 ? bias-1 : bias);
+        if (in == 0) return (int)(num%10);
+        for (int i = 0;i < nlen - in;i++) {
+            num /= 10;
+        }
+        num %= 10;
+        return (int)num;
+    }
 
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(e.getKey());
+        System.out.println(m.findNthDigit(1000000000));
     }
 
 
