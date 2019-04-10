@@ -797,6 +797,19 @@ public class leetcode2 {
         return (int)num;
     }
 
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) return false;
+       if (root.left == null && root.right == null) {
+           //叶子节点
+           if (sum == root.val) return true;
+           else return false;
+       }else {
+           return hasPathSum(root.left,sum-root.val) || hasPathSum(root.right,sum-root.val);
+       }
+
+    }
+
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
