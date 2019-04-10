@@ -809,11 +809,36 @@ public class leetcode2 {
 
     }
 
+    public boolean canThreePartsEqualSum(int[] A) {
+        int sum = 0,len = A.length;
+        int[] sums = new int[len];
+        sums[0] = A[0];
+        for (int i = 1; i < len; i++) {
+            sums[i] = sums[i-1] + A[i];
+        }
+        if (sums[len-1] % 3 != 0) return false;
+        int partsum = sums[len-1] / 3;
+        int pre = len,back = 0;
+        for (int i = 0; i < len;i++) {
+            if (sums[i] == partsum) {
+                pre = i;
+                break;
+            }
+        }
+         for (int j = len-2; j > pre;j--) {
+             if (sums[len-1] - sums[j] == partsum) {
+                 back =j;
+                 break;
+             }
+         }
+        return pre >= back ? false : true;
+    }
+
 
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.findNthDigit(1000000000));
+        System.out.println(m.canThreePartsEqualSum(new int[]{18,12,-18,18,-19,-1,10,10}));
     }
 
 
