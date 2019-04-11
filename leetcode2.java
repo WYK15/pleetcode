@@ -834,11 +834,48 @@ public class leetcode2 {
         return pre >= back ? false : true;
     }
 
+    public List<Integer> pancakeSort(int[] A) {
+        LinkedList<Integer> ll = new LinkedList<>();
+        int len = A.length;
+        int[] arr = new int[len];
+        HashMap<Integer,Integer> hm = new HashMap<>(); // value -> key
+        for (int i = 0; i < len;i++) {
+            arr[i] = i + 1;
+            hm.put(i+1,i);
+        }
+        int index = len -1 ;
+        while (index >= 1) {
+            if (arr[index] != A[index]) {
+                //找到A[index]在arr中的 对应的 下标
+                if (hm.get(A[index])+1 != 1) ll.addFirst(hm.get(A[index])+1);
+                if (index+1 != 1) ll.addFirst(index+1);
+                reverse(arr,0,hm.get(A[index]),hm);
+                reverse(arr,0,index,hm);
+            }
+            index--;
+        }
+        return ll;
+    }
+
+    private void reverse(int[] arr,int start,int end,HashMap<Integer,Integer> hm){
+        if (start == end) return;
+        int tmp ;
+        while (end > start) {
+            hm.put(arr[end],start);
+            hm.put(arr[start],end);
+            tmp = arr[end];
+            arr[end] = arr[start];
+            arr[start] = tmp;
+            end--;
+            start++;
+        }
+    }
 
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.canThreePartsEqualSum(new int[]{18,12,-18,18,-19,-1,10,10}));
+        System.out.println(m.pancakeSort(new int[]{3,2,4,1}));
+
     }
 
 
