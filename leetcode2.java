@@ -871,10 +871,30 @@ public class leetcode2 {
         }
     }
 
+    public boolean checkInclusion(String s1, String s2) {
+        // sliding windows
+        if(s1.length() > s2.length() )
+            return false;
+        int[] cnt1 = new int[26], cnt2 = new int[26];
+        char[] arr1 = s1.toCharArray(), arr2 = s2.toCharArray();
+        for(int i = 0; i<arr1.length; i++)
+            cnt1[arr1[i]-'a']++;
+
+        for(int i = 0; i < arr2.length; i++){
+            if(i < arr1.length){
+                cnt2[arr2[i] - 'a']++;
+            } else {
+                if(Arrays.equals(cnt1,cnt2))
+                    return true;
+                cnt2[arr2[i - arr1.length]-'a']--;
+                cnt2[arr2[i]-'a']++;
+            }
+        }
+        return Arrays.equals(cnt1,cnt2);
+    }
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.pancakeSort(new int[]{3,2,4,1}));
 
     }
 
