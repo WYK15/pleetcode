@@ -893,6 +893,16 @@ public class leetcode2 {
         return Arrays.equals(cnt1,cnt2);
     }
 
+    public int maxCount(int m, int n, int[][] ops) {
+        if (ops.length == 0) return m * n;
+        int mincol = Integer.MAX_VALUE,minrow = Integer.MAX_VALUE;
+        for (int[] s : ops) {
+            mincol = Math.min(s[0],mincol);
+            minrow = Math.min(s[1],minrow);
+        }
+        return mincol * minrow;
+    }
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
 
