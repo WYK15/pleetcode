@@ -903,6 +903,23 @@ public class leetcode2 {
         return mincol * minrow;
     }
 
+ /*   public  int count = 0;
+    public int pathSum(TreeNode root, int sum) {
+        if (root == null) return 0;
+        pathSumh(root,sum);
+        pathSum(root.left,sum);
+        pathSum(root.right,sum);
+        return count;
+    }
+
+    public void pathSumh(TreeNode root, int sum) {
+        if (root != null) {
+            if (root.val == sum) count++;
+            pathSumh(root.left,sum - root.val);
+            pathSumh(root.right,sum - root.val);
+        }
+    }*/
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
 
