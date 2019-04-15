@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 public class leetcode2 {
@@ -920,14 +922,14 @@ public class leetcode2 {
         }
     }*/
 
-    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+    /*public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         HashMap<String,Integer> hm = new HashMap<>();
         LinkedList<TreeNode> ll = new LinkedList<>();
         findDuplicateSubtrees(root,hm,ll);
         return ll;
-    }
+    }*/
 
-    public String findDuplicateSubtrees(TreeNode root,Map<String,Integer> map,LinkedList<TreeNode> res){
+   /* public String findDuplicateSubtrees(TreeNode root,Map<String,Integer> map,LinkedList<TreeNode> res){
         if (root == null) return "#";
         String s = root.val + "," +
                 findDuplicateSubtrees(root.left,map,res)+ "," +
@@ -935,12 +937,20 @@ public class leetcode2 {
         map.put(s,map.getOrDefault(s,0)+1);
         if (map.get(s) == 2) res.add(root);
         return s;
+    }*/
+
+    public boolean isValid(String S) {
+        if (S.length() == 0) return  false;
+        while (S.indexOf("abc") != -1) {
+            S = S.replaceAll("(abc)+","");
+        }
+        return S.length() == 0;
     }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
 
     }
-
 
 }
