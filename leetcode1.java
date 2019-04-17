@@ -3561,6 +3561,7 @@ public class leetcode1 {
 
     public static void main(String[] args) {
         leetcode1 m = new leetcode1();
+        System.out.println(String.valueOf("154"));
     }
 
 }

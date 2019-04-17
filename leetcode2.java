@@ -947,6 +947,24 @@ public class leetcode2 {
         return S.length() == 0;
     }
 
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null) return null;
+        ListNode odd = head,even = head.next;
+        ListNode feven = even;
+        while (odd!=null && even != null) {
+            odd.next = even.next;
+            if (odd.next!=null) even.next = odd.next.next;
+            else {
+                break;
+            }
+            odd = odd.next;
+            even = even.next;
+        }
+        odd.next = feven;
+        return head;
+
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
