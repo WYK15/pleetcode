@@ -1003,4 +1003,26 @@ public class leetcode2 {
 
     }
 
+    //382
+    class Solution {
+
+        /** @param head The linked list's head.
+        Note that the head is guaranteed to be not null, so it contains at least one node. */
+        ArrayList<ListNode> al = new ArrayList<>();
+        public Solution(ListNode head) {
+            while (head!=null) {
+                al.add(head);
+                head = head.next;
+            }
+        }
+
+        /** Returns a random node's value. */
+        public int getRandom() {
+            return al.get(new Random().nextInt(al.size())).val;
+        }
+    }
+
 }
+
+
+
