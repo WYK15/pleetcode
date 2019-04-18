@@ -962,7 +962,39 @@ public class leetcode2 {
         }
         odd.next = feven;
         return head;
+    }
 
+    public int shoppingOffers(List<Integer> price, List<List<Integer>> special, List<Integer> needs) {
+        return shoppingOffersdfs(price,special,needs,0);
+    }
+
+    public int shoppingOffersdfs(List<Integer> price, List<List<Integer>> special, List<Integer> needs,int value){
+        int result = 0;
+        for (int i = 0; i < price.size();i++){
+            result += price.get(i) * needs.get(i);
+        }
+        result += value;
+        for (int i = 0;i < special.size();i++) {
+            List<Integer> l = special.get(i);
+            List<Integer> tmp = new LinkedList<>(needs);
+            boolean canbuy = true;
+            for (int j = 0;j < l.size()-1;j++) {
+                if (needs.get(j) >= l.get(j)){
+                    needs.set(j,needs.get(j)-l.get(j));
+                }else {
+                    canbuy = false;
+                    break;
+                }
+            }
+            if (!canbuy) {
+                needs = tmp;
+                continue;
+            }else {
+                result = Math.min(shoppingOffersdfs(price,special,needs,value+l.get(l.size()-1)),result);
+                needs = tmp;
+            }
+        }
+        return result;
     }
 
 
