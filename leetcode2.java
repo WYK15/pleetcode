@@ -997,11 +997,34 @@ public class leetcode2 {
         return result;
     }
 
-
-    public static void main(String[] args) {
-        leetcode2 m = new leetcode2();
-
+    //481
+    public int magicalString(int n) {
+        if (n == 0 || n == 1) return n;
+        if (n <= 3) return 1;
+        int[] arr = new int[n+2];
+        arr[1] = 1;
+        arr[2] = 2;
+        arr[3] = 2;
+        int result = 1;
+        int index = 4,number;
+        int groupindex = 3,num;
+        while (index <= n ){
+            num = arr[groupindex++];//第groupindex组 有 num个1 / 2；
+            number = arr[index-1] == 1 ? 2 : 1;
+            if (num == 1) {
+                if (number == 1) result++;
+                arr[index++] = number;
+            }
+            else {
+                if (number == 1) result++;
+                arr[index++] = number;
+                if (index <=n && number == 1) result++;
+                arr[index++] = number;
+            }
+        }
+        return result;
     }
+
 
     //382
     class Solution {
@@ -1020,6 +1043,14 @@ public class leetcode2 {
         public int getRandom() {
             return al.get(new Random().nextInt(al.size())).val;
         }
+    }
+
+
+
+    public static void main(String[] args) {
+        leetcode2 m = new leetcode2();
+
+
     }
 
 }
