@@ -1045,7 +1045,21 @@ public class leetcode2 {
         }
     }
 
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        HashSet<Integer> ed = new HashSet<>(rooms.size());
+        canVisitAllRooms(rooms,ed,0);
+        return ed.size() == rooms.size() ? true : false;
+    }
 
+
+    public void canVisitAllRooms(List<List<Integer>> rooms,Set<Integer> visited,int position) {
+        if (!visited.contains(position)) {
+            visited.add(position);
+            for (int i = 0; i < rooms.get(position).size(); i++) {
+                canVisitAllRooms(rooms, visited,rooms.get(position).get(i));
+            }
+        }
+    }
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
