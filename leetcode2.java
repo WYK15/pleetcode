@@ -1061,7 +1061,7 @@ public class leetcode2 {
         }
     }
 
-    public String largestNumber(int[] nums) {
+    /*public String largestNumber(int[] nums) {
         String[] s = new String[nums.length];
         for (int i = 0; i < nums.length; i++) {
             s[i] = String.valueOf(nums[i]);
@@ -1093,11 +1093,28 @@ public class leetcode2 {
             if (sb.charAt(start0) != '0') break;
         }
         return start0 == sb.length() ? "0": sb.substring(start0);
+    }*/
+
+    public String largestNumber(int[] nums) {
+        ArrayList<String> al = new ArrayList<>();
+        for (int n:nums) al.add(String.valueOf(n));
+        Collections.sort(al,(a,b)->{
+            return (a+b).compareTo(b+a);
+        });
+        String s= new String();
+        for (int i = al.size()-1; i>= 0;i--) {
+            s += al.get(i);
+        }
+        int start0 = 0;
+        for (;start0 < s.length();start0++) {
+            if (s.charAt(start0) != '0') break;
+        }
+        return start0 == s.length() ? "0": s.substring(start0);
+
     }
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-        System.out.println(m.largestNumber(new int[]{8247,824}));
 
     }
 
