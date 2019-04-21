@@ -1061,11 +1061,46 @@ public class leetcode2 {
         }
     }
 
+    public String largestNumber(int[] nums) {
+        String[] s = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            s[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(s,(a,b)->{
+            int alen = a.length(),blen = b.length();
+            int maxlen = Math.max(alen,blen);
+            for (int i = 0; i < maxlen;i++){
+                if (i < alen && i < blen) {
+                    if (a.charAt(i)!=b.charAt(i)) return b.charAt(i)-a.charAt(i);
+                }else if (i < alen && i >= blen) {
+                   // return a.charAt(i) < b.charAt(i-1) ? 1 : -1;
+                    for (int j = 0;j < blen;j++) {
+                        if (a.charAt(i)!=b.charAt(j)) return b.charAt(j)-a.charAt(i);
+                    }
+                }else {
+                   // return b.charAt(i) < a.charAt(i-1) ? -1 : 1;
+                    for (int j = 0;j < alen;j++){
+                        if (b.charAt(i)!=a.charAt(j)) return b.charAt(i)-a.charAt(j);
+                    }
+                }
+            }
+            return 0;
+        });
+        StringBuilder sb = new StringBuilder();
+        for (String n : s) sb.append(n);
+        int start0 = 0;
+        for (;start0 < sb.length();start0++) {
+            if (sb.charAt(start0) != '0') break;
+        }
+        return start0 == sb.length() ? "0": sb.substring(start0);
+    }
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
-
+        System.out.println(m.largestNumber(new int[]{8247,824}));
 
     }
+
 
 }
 
