@@ -1149,6 +1149,19 @@ public class leetcode2 {
         return maxC;
     }
 
+    public int kthSmallest(TreeNode root, int k) {
+       LinkedList<Integer> res = kthSmallest(root);
+       return res.get(k-1);
+    }
+
+    public LinkedList<Integer> kthSmallest(TreeNode root ) {
+        LinkedList<Integer> ll = new LinkedList<>();
+        if (root.left!=null) ll.addAll(kthSmallest(root.left));
+        ll.add(root.val);
+        if (root.right!=null) ll.addAll(kthSmallest(root.right));
+        return ll;
+    }
+
 
 }
 
