@@ -1113,9 +1113,40 @@ public class leetcode2 {
 
     }
 
-    public static void main(String[] args) {
-        leetcode2 m = new leetcode2();
+    public List<String> letterCasePermutation(String S) {
+        HashSet<String> res = new HashSet<>();
+        StringBuilder sb = new StringBuilder(S);
+        letterCasePermutation(res,0,sb);
+        LinkedList<String> s = new LinkedList<>();
+        for (String ss : res) s.add(ss);
+        if (res.isEmpty() || S.length() > 0) s.add(S);
+        return s;
+    }
 
+    public void letterCasePermutation( HashSet<String> res,int index,StringBuilder sb) {
+        if (index<sb.length() ) {
+            if (Character.isAlphabetic(sb.charAt(index))) {
+                sb.setCharAt(index,Character.toUpperCase(sb.charAt(index)));
+                res.add(sb.toString());
+                letterCasePermutation(res,index+1,sb);
+                sb.setCharAt(index,Character.toLowerCase(sb.charAt(index)));
+                res.add(sb.toString());
+                letterCasePermutation(res,index+1,sb);
+            }else {
+                letterCasePermutation(res,index+1,sb);
+            }
+        }
+    }
+
+    public int largestPerimeter(int[] A) {
+        Arrays.sort(A);
+        int maxC = 0;
+        for(int i = A.length;i >= 2;i--) {
+            if (A[i-1]+A[i-2] > A[i] ) {
+                maxC = Math.max(A[i-1]+A[i-2]+A[i],maxC);
+            }
+        }
+        return maxC;
     }
 
 
