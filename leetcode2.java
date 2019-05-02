@@ -1162,6 +1162,34 @@ public class leetcode2 {
         return ll;
     }
 
+    public boolean isLongPressedName(String name, String typed) {
+        char[] arr1 = name.toCharArray(),arr2 = typed.toCharArray();
+        int len1 = arr1.length,len2 = arr2.length;
+        int i = 0,j = 0;
+        while (i < len1 && j < len2) {
+            if (arr1[i] == arr2[j] ){
+                i++;
+                j++;
+            }else {
+                if (i-1 >= 0 && arr2[j] == arr1[i-1]) {
+                    j++;
+                }else {
+                    return false;
+                }
+            }
+        }
+        if (i >= len1 && j >= len2) return true;
+        if (i >= len1 && j < len2) {
+            for (int p = j;p < len2;p++) {
+                if (arr2[p] != arr1[len1-1]) return false;
+            }
+        }else {
+            return false;
+        }
+        return true;
+    }
+
+
 
 }
 
