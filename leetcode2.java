@@ -1220,6 +1220,24 @@ public class leetcode2 {
         return null;
     }
 
+    public int longestPalindrome(String s) {
+        HashMap<Character,Integer> hm = new HashMap<>();
+        for (int i = 0;i < s.length();i++) {
+            hm.put(s.charAt(i),hm.getOrDefault(s.charAt(i),0)+1);
+        }
+        int result = 0;
+        boolean hasji = false;
+        for (int n : hm.values()){
+            if (n % 2 == 0) {
+                result += n;
+            }else {
+                result += (n-1);
+                hasji = true;
+            }
+        }
+        return hasji ? result+1 : result;
+    }
+
 }
 
 
