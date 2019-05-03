@@ -1202,15 +1202,23 @@ public class leetcode2 {
         return Math.max(result,count);
     }
 
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    /*public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root.val > p.val && root.val < q.val) return root;
         if (root.val < p.val && root.val > q.val) return root;
         if (root.val < p.val && root.val < q.val) return lowestCommonAncestor(root.right,p,q);
         if (root.val > p.val && root.val > q.val) return lowestCommonAncestor(root.left,p,q);
         return root;
+    }*/
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q) return root;
+        TreeNode tmp1 = lowestCommonAncestor(root.left,p,q);
+        TreeNode tmp2 = lowestCommonAncestor(root.right,p,q);
+        if (tmp1 == null) return tmp2;
+        if (tmp2 == null) return tmp1;
+        if (tmp1 != null && tmp2!=null) return root;
+        return null;
     }
-
-
 
 }
 
