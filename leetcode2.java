@@ -1220,6 +1220,7 @@ public class leetcode2 {
         return null;
     }
 
+    //409
     public int longestPalindrome(String s) {
         HashMap<Character,Integer> hm = new HashMap<>();
         for (int i = 0;i < s.length();i++) {
@@ -1236,6 +1237,30 @@ public class leetcode2 {
             }
         }
         return hasji ? result+1 : result;
+    }
+
+    int result = 0;
+    public int countArrangement(int N) {
+        boolean[] used = new boolean[N+1];
+        Arrays.fill(used,false);
+        countArrangement(N,1,used);
+        return result;
+    }
+
+    public void countArrangement(int N,int index,boolean[] used) {
+        if (index > N) {
+            result++;
+        }else {
+            for (int i = 1;i <= N;i++) {
+                if (!used[i]) {
+                    if (N % index == 0 || index % N == 0) {
+                        used[index] = true;
+                        countArrangement(N,index+1,used);
+                        used[index] = false;
+                    }
+                }
+            }
+        }
     }
 
 }
