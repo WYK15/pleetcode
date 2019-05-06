@@ -1,6 +1,7 @@
 
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class leetcode2 {
 
@@ -1261,6 +1262,28 @@ public class leetcode2 {
                 }
             }
         }
+    }
+
+
+    public List<Boolean> camelMatch(String[] queries, String pattern) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[a-z]*");
+        for (int i = 0;i < pattern.length();i++) {
+            sb.append(pattern.charAt(i));
+            sb.append("[a-z]*");
+        }
+        String pat = sb.toString();
+        ArrayList<Boolean> res = new ArrayList<>();
+        for (int i = 0;i < queries.length;i++) {
+            res.add(i,Pattern.matches(pat,queries[i]));
+        }
+        return res;
+
+    }
+
+    public static void main(String[] args) {
+        leetcode2 m = new leetcode2();
+
     }
 
 }
