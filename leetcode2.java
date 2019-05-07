@@ -1264,8 +1264,8 @@ public class leetcode2 {
         }
     }
 
-
-    public List<Boolean> camelMatch(String[] queries, String pattern) {
+    //2013
+   /* public List<Boolean> camelMatch(String[] queries, String pattern) {
         StringBuilder sb = new StringBuilder();
         sb.append("[a-z]*");
         for (int i = 0;i < pattern.length();i++) {
@@ -1279,6 +1279,15 @@ public class leetcode2 {
         }
         return res;
 
+    }*/
+
+    public int brokenCalc(int X, int Y) {
+        if (X >= Y) return X - Y;
+        if (Y % 2 == 0) {
+            return 1+brokenCalc(X,Y / 2);
+        }else {
+            return 1+brokenCalc(X,(Y + 1) );
+        }
     }
 
     public static void main(String[] args) {
