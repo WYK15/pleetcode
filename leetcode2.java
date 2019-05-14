@@ -1290,6 +1290,47 @@ public class leetcode2 {
         }
     }
 
+    class MagicDictionary {
+
+        HashMap<Integer,HashSet<String>> hm;
+
+        /** Initialize your data structure here. */
+        public MagicDictionary() {
+
+        }
+
+        /** Build a dictionary through a list of words */
+        public void buildDict(String[] dict) {
+            hm = new HashMap<>(dict.length);
+            for (String s : dict) {
+                if (hm.containsKey(s.length())){
+                    hm.get(s.length()).add(s);
+                }else {
+                    HashSet<String> tmp = new HashSet<>();
+                    tmp.add(s);
+                    hm.put(s.length(),tmp);
+                }
+            }
+        }
+
+        /** Returns if there is any word in the trie that equals to the given word after modifying exactly one character */
+        public boolean search(String word) {
+            HashSet<String> set = hm.getOrDefault(word.length(),null);
+            if (set == null) return false;
+            int diff = 0;
+            for (String s : set) {
+                diff = 0;
+                for (int i = 0;i < s.length();i++) {
+                    if (diff >= 2) break;
+                    if (s.charAt(i)!=word.charAt(i)) diff++;
+                }
+                if (diff == 1) return true;
+            }
+            return false;
+        }
+    }
+
+
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
 
