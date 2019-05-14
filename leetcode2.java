@@ -1330,6 +1330,34 @@ public class leetcode2 {
         }
     }
 
+   /* public boolean isSubsequence(String s, String t) {
+        char[] arr1 = s.toCharArray(),arr2 = t.toCharArray();
+        int i = 0,j = 0,len1 = arr1.length,len2 = arr2.length;
+        if (len1 == 0) return true;
+        if (len2 == 0) return false;
+        while (i < len1) {
+            if (j >= len2) break;
+            if (arr1[i] == arr2[j]) {
+                i++;
+                j++;
+            }else {
+                j++;
+            }
+        }
+        return i == len1;
+    }*/
+    //392
+    public boolean isSubsequence(String s, String t) {
+        int index=-1;
+        for(int i=0;i<s.length();i++) {
+            index=t.indexOf(s.charAt(i),index+1);
+            if(index==-1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         leetcode2 m = new leetcode2();
