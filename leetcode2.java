@@ -1405,15 +1405,6 @@ public class leetcode2 {
         return (aji / bji) % 99997867;
     }
 
-    public boolean canPartitionKSubsets(int[] nums, int k) {
-        if (k == 1) return true;
-        int sum = 0;
-        for (int n : nums)  sum += n;
-        if (sum % k == 0) {
-
-        }else return false;
-    }
-
 
     public int[] sortArrayByParity(int[] A) {
         int left = 0,right = A.length;
@@ -1454,6 +1445,26 @@ public class leetcode2 {
             if (nums[i] > 0) res.add(i);
         }
         return res;
+    }
+
+
+    public void rotate(int[] nums, int k) {
+       int len = nums.length;
+       if (len == 0) return;
+       int mid = len - k;
+       reverse(nums,0,mid-1);
+       reverse(nums,mid,len-1);
+       reverse(nums,0,len-1);
+    }
+
+    public void reverse(int[] nums,int left,int right) {
+        while (left < right) {
+            int tmp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = tmp;
+            left++;
+            right--;
+        }
     }
 
     public static void main(String[] args) {
