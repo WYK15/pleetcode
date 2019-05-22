@@ -1444,6 +1444,17 @@ public class leetcode2 {
         return sum;
     }
 
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        int len = nums.length;
+        for (int i = 0;i < len;i++) {
+            if (nums[Math.abs(nums[i])] > 0) nums[nums[i]] *= (-1);
+        }
+        LinkedList<Integer> res = new LinkedList<>();
+        for (int i = 0; i < len;i++) {
+            if (nums[i] > 0) res.add(i);
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
 
