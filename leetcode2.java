@@ -1358,9 +1358,85 @@ public class leetcode2 {
         return true;
     }
 
+    public boolean hasPath(char[][] matrix, String str) {
+        int row = matrix.length;
+        if (row == 0) return str.length() == 0;
+        int col = matrix[0].length;
+        boolean[][] visited = new boolean[row][col];
+        for (int i = 0; i < row;i++) {
+            for (int j = 0;j < col;j++) {
+                if (dfs(matrix,str,i,j,0,visited)) return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(char[][] matrix, String str,int row,int col,int index,boolean[][] visited){
+        if (row >=0 && row < matrix.length && col >= 0 && col < matrix[0].length && !visited[row][col]) {
+            if (index == str.length()) {
+                return true;
+            }
+            if (str.charAt(index) == matrix[row][col]) {
+                visited[row][col] = true;
+                boolean flag = dfs(matrix, str, row + 1, col, index + 1, visited) ||
+                        dfs(matrix, str, row, col + 1, index + 1, visited) ||
+                        dfs(matrix, str, row - 1, col, index + 1, visited) ||
+                        dfs(matrix, str, row, col - 1, index + 1, visited);
+                if (!flag) {
+                    visited[row][col] = false;
+                    return false;
+                }
+                else return flag;
+            } else {
+                return false;
+            }
+        }
+        return index == str.length();
+    }
+
+    private static int C(int a ,int b) {
+        if (a < b) return 0;
+        if (a == b) return 1;
+        int aji = 1,bji = 1;
+        while (b > 0) {
+            aji *= (a--);
+            bji *= (b--);
+        }
+        return (aji / bji) % 99997867;
+    }
+
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        if (k == 1) return true;
+        int sum = 0;
+        for (int n : nums)  sum += n;
+        if (sum % k == 0) {
+
+        }else return false;
+    }
+
+
+    public int[] sortArrayByParity(int[] A) {
+        int left = 0,right = A.length;
+        if (right == 0 || right == 1) return A;
+        int tmp;
+        while (left < right) {
+            while (left < right && A[left] % 2 != 0) {
+                left++;
+            }
+            while (left < right && A[right] % 2 == 0) {
+                right--;
+            }
+            if (left < right) {
+                tmp = A[left];
+                A[left] = A[right];
+                A[right] = tmp;
+            }
+        }
+        return A;
+    }
+
 
     public static void main(String[] args) {
-        leetcode2 m = new leetcode2();
 
     }
 
