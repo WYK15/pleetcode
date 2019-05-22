@@ -1,6 +1,7 @@
 
 
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class leetcode2 {
@@ -1466,6 +1467,27 @@ public class leetcode2 {
             right--;
         }
     }
+
+
+    public int arrayNesting(int[] nums) {
+        int result = Integer.MIN_VALUE;
+        int len = nums.length;
+        boolean[] visited = new boolean[len];
+        for (int i = 0;i < len;i++) {
+            if (visited[i]) continue;
+            visited[i] = true;
+            HashSet<Integer> hs = new HashSet<>();
+            int index = i;
+            while (!hs.contains(nums[index])) {
+                visited[index] = true;
+                hs.add(nums[index]);
+                index = nums[index];
+            }
+            result = Math.max(hs.size(),result);
+        }
+        return result;
+    }
+
 
     public static void main(String[] args) {
 
