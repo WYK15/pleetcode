@@ -1489,7 +1489,7 @@ public class leetcode2 {
     }
 
 
-    public int removeDuplicates(int[] nums) {
+   /* public int removeDuplicates(int[] nums) {
         int len = nums.length;
         if (len == 1 ) return 1;
         for (int i = 0;i < len;i++) {
@@ -1506,7 +1506,18 @@ public class leetcode2 {
             }
         }
         return len;
-    }
+    }*/
+
+   public int removeDuplicates(int[] nums) {
+        int len = nums.length,pos = 1;
+        if (len <= 1) return len;
+        for (int i = 0;i < len;i++) {
+            if (nums[i] != nums[pos-1]) {
+                nums[++pos] = nums[i];
+            }
+        }
+        return pos+1;
+   }
 
     public static void main(String[] args) {
         System.out.println(new leetcode2().removeDuplicates(new int[]{1,1,1}));
