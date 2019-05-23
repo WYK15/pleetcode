@@ -1489,8 +1489,27 @@ public class leetcode2 {
     }
 
 
-    public static void main(String[] args) {
+    public int removeDuplicates(int[] nums) {
+        int len = nums.length;
+        if (len == 1 ) return 1;
+        for (int i = 0;i < len;i++) {
+            int index = i+1;
+            for (; index < len;index++) {
+                if (nums[index] != nums[i]) break;
+            }
+            if (index - i >= 2) {
+                 int gap = index - i -2;
+                 for (int p = index; p < len;p++) {
+                     nums[p-gap] = nums[p];
+                 }
+                 len -= gap;
+            }
+        }
+        return len;
+    }
 
+    public static void main(String[] args) {
+        System.out.println(new leetcode2().removeDuplicates(new int[]{1,1,1}));
     }
 
 }
