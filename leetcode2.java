@@ -1547,8 +1547,24 @@ public class leetcode2 {
         return dp[len-1];
     }
 
+    public boolean isHappy(int n) {
+        HashSet<Integer> visited = new HashSet<>();
+        while (!visited.contains(n)) {
+            if ( n == 1) return true;
+            visited.add(n);
+            int tmp = n;
+            int sum = 0;
+            while (tmp != 0) {
+                sum += (tmp % 10) * (tmp % 10);
+                tmp /= 10;
+            }
+            n = sum;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        System.out.println(new leetcode2().removeDuplicates(new int[]{1,1,1}));
+        System.out.println(new leetcode2().isHappy(7));
     }
 
 }
