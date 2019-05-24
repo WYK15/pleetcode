@@ -1533,6 +1533,20 @@ public class leetcode2 {
         return nums[left];
     }
 
+    public int maxSumAfterPartitioning(int[] A, int K) {
+       int len = A.length;
+        int[] dp = new int[len];
+        Arrays.fill(dp,0);
+        for (int i = 0; i < len;i++) {
+            int max = A[i];
+            for (int j = 1;j < K && (i - j) >= 0;j++) {
+                max = Math.max(max,A[i-j]);
+                dp[i] = Math.max(dp[i],i-j -1 < 0 ? 0 : dp[i - j -1] + max * (i-j+1));
+            }
+        }
+        return dp[len-1];
+    }
+
     public static void main(String[] args) {
         System.out.println(new leetcode2().removeDuplicates(new int[]{1,1,1}));
     }
