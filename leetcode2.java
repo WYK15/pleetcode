@@ -1563,6 +1563,39 @@ public class leetcode2 {
         return false;
     }
 
+    public int findShortestSubArray(int[] nums) {
+       int len = nums.length;
+       HashMap<Integer,Integer> hm = new HashMap<>(len);
+       for (int n : nums){
+           hm.put(n,hm.getOrDefault(n,0)+1);
+       }
+       int maxtimes = 0;
+       for (Integer integer : hm.values()) {
+           maxtimes = Math.max(maxtimes,integer);
+       }
+       if (maxtimes == 1) return maxtimes;
+       LinkedList<Integer> ll = new LinkedList<>();
+       for (Map.Entry<Integer,Integer> entry : hm.entrySet()) {
+           if (entry.getValue() == maxtimes) {
+               ll.add(entry.getKey());
+               System.out.println(entry.getKey());
+           }
+       }
+       int min = Integer.MAX_VALUE;
+       for (int n : nums) {
+           int start = 0,end = len-1;
+           for (;start < len;start++) {
+               if (nums[start] == n) break;
+           }
+           for (;end > start;end--) {
+               if (nums[end] == n ) break;
+           }
+           min = Math.min(min,end-start+1);
+       }
+       return min;
+
+    }
+
     public static void main(String[] args) {
         System.out.println(new leetcode2().isHappy(7));
     }
