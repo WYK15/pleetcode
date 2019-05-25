@@ -1596,8 +1596,33 @@ public class leetcode2 {
 
     }
 
+    public int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        int len = A.length;
+        int lsum = 0,msum = 0;
+        int result = 0;
+        int[] sums = new int[len];
+        for (int i = 0;i < len;i++){
+            sums[i] = (i -1 >= 0 ? sums[i-1]:0) + A[i];
+        }
+        for (int i = 0;i <= len-L;i++) {
+            lsum = sums[i+L-1] - sums[i] + A[i];
+            msum = 0;
+            //i之前的
+            for (int j = 0;(j + M) <= i;j++)  {
+                msum = Math.max(msum,sums[j+M-1] - sums[j] + A[j]);
+            }
+            //i + L 之后的
+            for (int j = i + L;j <= len-M;j++){
+                msum = Math.max(msum,sums[j+M-1] - sums[j] + A[j]);
+            }
+            result = Math.max(result,msum+lsum);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        System.out.println(new leetcode2().isHappy(7));
+       leetcode2 l = new leetcode2();
+        System.out.println(l.maxSumTwoNoOverlap(new int[]{2,1,5,6,0,9,5,0,3,8},4,3));
     }
 
 }
