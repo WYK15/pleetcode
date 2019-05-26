@@ -1664,6 +1664,20 @@ public class leetcode2 {
         return Integer.parseInt(strs[0])*60+Integer.parseInt(strs[1]);
     }
 
+    public int firstUniqChar(String s) {
+        int [] times = new int[26];
+        for(int i = 0 ; i < s.length() ; i++){
+            times[s.charAt(i) - 'a']++;
+        }
+
+        for(int i = 0 ; i < s.length() ;i++){
+            if(times[s.charAt(i) - 'a'] == 1)
+                return i;
+        }
+
+        return -1;
+    }
+
 
 
     public static void main(String[] args) {
