@@ -1674,10 +1674,36 @@ public class leetcode2 {
             if(times[s.charAt(i) - 'a'] == 1)
                 return i;
         }
-
         return -1;
     }
 
+
+
+    class Solution {
+        int[] numss;
+        public Solution(int[] nums) {
+            this.numss = nums;
+        }
+
+        /** Resets the array to its original configuration and return it. */
+        public int[] reset() {
+            return numss;
+        }
+
+        /** Returns a random shuffling of the array. */
+        public int[] shuffle() {
+            int[] backup = Arrays.copyOf(numss,numss.length);
+            Random rand = new Random();
+            for (int i = backup.length-1;i > 0;i--) {
+                //从i到len-1挑选一个 与 i 交换
+                int l = rand.nextInt(i+1);
+                int tmp = backup[i];
+                backup[i] = backup[l];
+                backup[l] = tmp;
+            }
+            return backup;
+        }
+    }
 
 
     public static void main(String[] args) {
