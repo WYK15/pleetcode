@@ -1678,19 +1678,19 @@ public class leetcode2 {
     }
 
 
-
-    class Solution {
+    //384
+    /*class Solution {
         int[] numss;
         public Solution(int[] nums) {
             this.numss = nums;
         }
 
-        /** Resets the array to its original configuration and return it. */
+        *//** Resets the array to its original configuration and return it. *//*
         public int[] reset() {
             return numss;
         }
 
-        /** Returns a random shuffling of the array. */
+        *//** Returns a random shuffling of the array. *//*
         public int[] shuffle() {
             int[] backup = Arrays.copyOf(numss,numss.length);
             Random rand = new Random();
@@ -1703,7 +1703,7 @@ public class leetcode2 {
             }
             return backup;
         }
-    }
+    }*/
 
 
     public static void main(String[] args) {
