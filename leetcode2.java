@@ -144,7 +144,7 @@ public class leetcode2 {
         return true;
     }
 
-    public boolean repeatedSubstringPattern(String s) {
+    /*public boolean repeatedSubstringPattern(String s) {
         int len = s.length();
         if (len == 0 || len == 1) return false;
         boolean flag = true;
@@ -163,7 +163,7 @@ public class leetcode2 {
             }
         }
         return false;
-    }
+    }*/
 
 
     public List<List<Integer>> largeGroupPositions(String S) {
@@ -1642,9 +1642,32 @@ public class leetcode2 {
         return dummyHead1.next;
     }
 
+
+    public int findMinDifference(List<String> timePoints) {
+        int[] times=new int[timePoints.size()];
+        int idx=0;
+        for (String s:timePoints)
+        {
+            times[idx++]=getMinute(s);
+        }
+        Arrays.sort(times);
+        int res=times[0]+24*60-times[times.length-1];
+        for (int i=1;i<times.length;i++)
+        {
+            res=Math.min(times[i]-times[i-1],res);
+        }
+        return res;
+    }
+
+    private int getMinute(String s) {
+        String[] strs=s.split(":");
+        return Integer.parseInt(strs[0])*60+Integer.parseInt(strs[1]);
+    }
+
+
+
     public static void main(String[] args) {
        leetcode2 l = new leetcode2();
-
     }
 
 }
