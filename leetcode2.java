@@ -1705,9 +1705,33 @@ public class leetcode2 {
         }
     }*/
 
+    public List<String> summaryRanges(int[] nums) {
+        int len = nums.length;
+        boolean constant = false;
+        StringBuilder sb = new StringBuilder();
+        LinkedList<String> ll  = new LinkedList<>();
+        if (len == 0) return ll;
+        sb.append(String.valueOf(nums[0]));
+        for (int i = 1;i <= len;i++) {
+            if (i == len) constant = false;
+            else constant = nums[i] - nums[i-1] == 1;
+            if (!constant){
+                if (String.valueOf(nums[i-1]).equals(sb.toString())) ll.add(sb.toString());
+                else {
+                    sb.append("->");
+                    sb.append(String.valueOf(nums[i-1]));
+                    ll.add(sb.toString());
+                }
+                sb = new StringBuilder();
+                if (i < len) sb.append(String.valueOf(nums[i]));
+            }
+        }
+        return ll;
+    }
+
 
     public static void main(String[] args) {
-       leetcode2 l = new leetcode2();
+        System.out.println(String.valueOf("-1"));
     }
 
 }
