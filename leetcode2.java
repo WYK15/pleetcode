@@ -1752,6 +1752,34 @@ public class leetcode2 {
         return false;
     }
 
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] arr = new int[numCourses];
+        Arrays.fill(arr,0);
+        for (int i = 0;i < prerequisites.length;i++) {
+            arr[prerequisites[i][0]]++;
+        }
+        LinkedList<Integer> queue = new LinkedList<>();
+        for (int i = 0;i < arr.length;i++) {
+            if (arr[i] == 0) queue.offer(i);
+        }
+
+        int count = 0;
+        while (!queue.isEmpty())
+        {
+            int front = queue.pop();
+            count++;
+            for (int i = 0;i < prerequisites.length;i++) {
+                if (prerequisites[i][1] == front) {
+                    arr[prerequisites[i][0]]--;
+                    if (arr[prerequisites[i][0]]==0) {
+                        queue.offer(prerequisites[i][0]);
+                    }
+                }
+            }
+        }
+        return count == numCourses;
+    }
+
 
     public static void main(String[] args)
     {
