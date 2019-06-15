@@ -1729,9 +1729,33 @@ public class leetcode2 {
         return ll;
     }
 
+    public boolean buddyStrings(String A, String B) {
+        int alen = A.length(),blen = B.length();
+        if (alen!=blen) return false;
+        int[] arr = new int[26];
+        ArrayList<Integer> al = new ArrayList<>();
+        for (int i = 0; i < alen;i++) {
+            arr[A.charAt(i)-'a']++;
+            if (A.charAt(i)!=B.charAt(i)){
+                al.add(i);
+            }
+        }
+        if (al.size()==0) {
+            for (int i = 0;i < 26;i++) {
+                if (arr[i] >= 2) return true;
+            }
+            return false;
+        }
+        if (al.size()!=2) return false;
+        int tmp1 = al.get(0),tmp2 = al.get(1);
+        if (A.charAt(tmp1)==B.charAt(tmp2) && A.charAt(tmp2)==B.charAt(tmp1)) return true;
+        return false;
+    }
 
-    public static void main(String[] args) {
-        System.out.println(String.valueOf("-1"));
+
+    public static void main(String[] args)
+    {
+
     }
 
 }
