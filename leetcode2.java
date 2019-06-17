@@ -1780,6 +1780,33 @@ public class leetcode2 {
         return count == numCourses;
     }
 
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        LinkedList<Integer> tmp = new LinkedList<>();
+        Set<List<Integer>> ll = new HashSet<>();
+        if (nums.length == 0) return new LinkedList<>();
+        findSubsequences(nums,tmp,0,ll);
+        return new LinkedList<>(ll);
+    }
+
+    public void findSubsequences(int[] nums,LinkedList<Integer> tmp,int index,Set<List<Integer>> res) {
+
+        if (tmp.size() >= 2) {
+            res.add(new LinkedList<>(tmp));
+        }
+        if (index == nums.length){
+            return ;
+        }
+        for (int i = index;i < nums.length;i++) {
+            if(index == 0 || tmp.getLast() <= nums[i]) {
+                tmp.addLast(nums[i]);
+                findSubsequences(nums,tmp,i+1,res);
+                tmp.removeLast();
+            }else {
+                findSubsequences(nums,tmp,i+1,res);
+            }
+        }
+    }
+
 
     public static void main(String[] args)
     {
