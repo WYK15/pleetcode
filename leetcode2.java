@@ -1830,6 +1830,33 @@ public class leetcode2 {
         return dp[len1][len2];
     }
 
+    public int shipWithinDays(int[] weights, int D) {
+        int max = -1,sum = 0;
+        for (int n: weights) {
+            max =  Math.max(max,n);
+            sum += n;
+        }
+        int low = max,right = sum;
+        while (low < right) {
+            int cap = (low + right ) >> 1;
+            int now = 0;
+            int day = 1;
+            for (int n : weights) {
+                now += n;
+                if (now > cap) {
+                    day++;
+                    now = n;
+                }
+            }
+            if (day > D) {
+                low = cap+1;
+            }else {
+                right = cap;
+            }
+        }
+        return low;
+    }
+
     public static void main(String[] args)
     {
 
